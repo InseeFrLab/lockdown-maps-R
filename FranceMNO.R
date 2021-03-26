@@ -1,7 +1,6 @@
 if (!requireNamespace("odf")) remotes::install_github("mtennekes/odf")
 library(odf) # this is a class package for OD data, but in development
 
-library(leafsync)
 library(tidyverse)
 library(sf)
 library(remotes)
@@ -11,9 +10,12 @@ remotes::install_github("mtennekes/tmap") # latest github version of tmap requir
 library(tmap)
 library(tmaptools)
 
+library(leafsync)
 #library(remotes)
 library(htmlwidgets)
-#library(htmltools)
+library(htmltools)
+
+setwd('~/lockdown-maps-R/')
 
 # load script to make donuts
 source("R/bake_donuts.R")
@@ -165,6 +167,28 @@ lf_out_FR = print(tm_b_and_d_out_FR, show = FALSE, full.height = TRUE) %>%
 	htmlwidgets::appendContent(htmltools::HTML(HTML_FR)) 
 lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%  
 	htmlwidgets::appendContent(htmltools::HTML(HTML_EN)) 
+
+
+save_tags <- function (tags, file, selfcontained = F, libdir = "./lib") 
+{
+  if (is.null(libdir)) {
+    libdir <- paste(tools::file_path_sans_ext(basename(file)), 
+                    "_files", sep = "")
+  }
+  htmltools::save_html(tags, file = file, libdir = libdir)
+  if (selfcontained) {
+    if (!htmlwidgets:::pandoc_available()) {
+      stop("Saving a widget with selfcontained = TRUE requires pandoc. For details see:\n", 
+           "https://github.com/rstudio/rmarkdown/blob/master/PANDOC.md")
+    }
+    htmlwidgets:::pandoc_self_contained_html(file, file)
+    unlink(libdir, recursive = TRUE)
+  }
+  return(file)
+}
+
+
+save_tags(mapSync, "index.html", selfcontained=TRUE)
 
 # Autre option que d'exporter à la main? https://github.com/r-spatial/mapview/issues/35
 # https://community.rstudio.com/t/save-viewer-object-rendered-in-rstudio-as-image/32796/6
