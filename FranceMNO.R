@@ -169,26 +169,16 @@ lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%
 	htmlwidgets::appendContent(htmltools::HTML(HTML_EN)) 
 
 
-save_tags <- function (tags, file, selfcontained = F, libdir = "./lib") 
+save_tags <- function (tags, file) 
 {
-  if (is.null(libdir)) {
-    libdir <- paste(tools::file_path_sans_ext(basename(file)), 
-                    "_files", sep = "")
-  }
-  htmltools::save_html(tags, file = file, libdir = libdir)
-  if (selfcontained) {
-    if (!htmlwidgets:::pandoc_available()) {
-      stop("Saving a widget with selfcontained = TRUE requires pandoc. For details see:\n", 
-           "https://github.com/rstudio/rmarkdown/blob/master/PANDOC.md")
-    }
-    htmlwidgets:::pandoc_self_contained_html(file, file)
-    unlink(libdir, recursive = TRUE)
-  }
-  return(file)
+  
+  htmltools::save_html(tags, file = file)
+  htmlwidgets:::pandoc_self_contained_html(file, file)
+  file
 }
 
 
-save_tags(mapSync, "index.html", selfcontained=TRUE)
+save_tags(lf_in_FR, "html/test.html")
 
 # Autre option que d'exporter à la main? https://github.com/r-spatial/mapview/issues/35
 # https://community.rstudio.com/t/save-viewer-object-rendered-in-rstudio-as-image/32796/6
