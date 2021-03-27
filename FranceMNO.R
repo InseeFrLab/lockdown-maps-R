@@ -173,12 +173,23 @@ save_tags <- function (tags, file)
 {
   
   htmltools::save_html(tags, file = file)
-  htmlwidgets:::pandoc_self_contained_html(file, file)
+  rmarkdown::pandoc_self_contained_html(file, file)
   file
 }
 
 
-save_tags(lf_in_FR, "html/test.html")
+save_tags(lf_in_FR, "test.html")
+
+htmltools::save_html(lf_in_FR, "test.html")
+
+pandoc_self_contained_html <- function(input, output) {
+  xml_tree <- xml2::read_html(input)
+  in_head <- paste0(as.character(xml2::xml_find_all(xml_tree, ".//head/*")), collapse = "\n")
+  html_body <- paste0(as.character(xml2::xml_find_all(xml_tree, ".//body/*")), collapse = "\n")
+  md_file <- tempfile(fileext = ".md")
+  writeLines(html_body, md_file)
+  
+}
 
 # Autre option que d'exporter à la main? https://github.com/r-spatial/mapview/issues/35
 # https://community.rstudio.com/t/save-viewer-object-rendered-in-rstudio-as-image/32796/6
