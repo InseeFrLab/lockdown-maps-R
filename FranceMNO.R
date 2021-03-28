@@ -172,8 +172,8 @@ lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%
 # because rmarkdown::pandoc_self_contained_html
 # and htmlwidgets:::pandoc_self_contained_html have some bugs
 pandoc_self_contained_html <- function(input, output, lang) {
-  if (!rmarkdown::pandoc_available()) {
-    stop("Pandoc is not available.")
+  if (!rmarkdown::pandoc_available("2.0.5")) {
+    stop("Pandoc >= 2.0.5 must be available from R.")
   }
   
   stopifnot(is.character(lang))
@@ -202,7 +202,7 @@ pandoc_self_contained_html <- function(input, output, lang) {
   system2(
     rmarkdown::pandoc_exec(), 
     args = c(
-      "--from=html-native_divs+raw_html-native_spans",
+      "--from=html-native_divs-native_spans+raw_html+empty_paragraphs",
       "--to=html",
       "--self-contained",
       sprintf("--include-in-header=%s", shQuote(include_in_header)),
