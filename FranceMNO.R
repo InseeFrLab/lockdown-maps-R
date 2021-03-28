@@ -168,22 +168,83 @@ lf_out_FR = print(tm_b_and_d_out_FR, show = FALSE, full.height = TRUE) %>%
 lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%  
 	htmlwidgets::appendContent(htmltools::HTML(HTML_EN)) 
 
-
-save_tags <- function (tags, file) 
-{
+# Write our own pandoc_self_contained_html function
+# because rmarkdown::pandoc_self_contained_html
+# and htmlwidgets:::pandoc_self_contained_html have some bugs
+pandoc_self_contained_html <- function(input, output, lang) {
+  if (!rmarkdown::pandoc_available("2.0.5")) {
+    stop("Pandoc >= 2.0.5 must be available from R.")
+  }
   
-  htmltools::save_html(tags, file = file)
-  htmlwidgets:::pandoc_self_contained_html(file, file)
-  file
+  input <- normalizePath(input)
+  if (!file.exists(output)) {
+    file.create(output)
+  }
+  output <- normalizePath(output)
+  stopifnot(is.character(lang))
+  stopifnot(length(lang) == 1)
+
+  xml_tree <- xml2::read_html(input)
+  html_head <- as.character(xml2::xml_find_all(xml_tree, ".//head/*"))
+  include_in_header <- tempfile(fileext = ".html")
+  writeLines(html_head, include_in_header)
+  on.exit(unlink(include_in_header), add = TRUE)
+  
+  template <- tempfile(fileext = ".html")
+  writeLines(con = template, c(
+    "<!DOCTYPE html>",
+    "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"$lang$\" xml:lang=\"$lang$\">",
+    "<head>",
+    "$for(header-includes)$",
+    "  $header-includes$",
+    "$endfor$",
+    "</head>",
+    "<body>",
+    "$body$",
+    "</body>",
+    "</html>"
+  ))
+  on.exit(unlink(template), add = TRUE)
+  
+  outfile <- tempfile(fileext = ".html")
+  on.exit(unlink(outfile), add = TRUE)
+  
+  cur_dir <- setwd(dirname(input))
+  on.exit(setwd(cur_dir), add = TRUE)
+  
+  system2(
+    rmarkdown::pandoc_exec(), 
+    args = c(
+      "--from=html-native_divs-native_spans+raw_html+empty_paragraphs",
+      "--to=html",
+      "--self-contained",
+      sprintf("--include-in-header=%s", shQuote(include_in_header)),
+      "--metadata", "title=' '",
+      "--metadata", sprintf("lang='%s'", lang),
+      sprintf("--template=%s", shQuote(template)),
+      input
+    ),
+    stdout = outfile
+  )
+  
+  file.copy(outfile, output, overwrite = TRUE)
+  
+  invisible(output)
 }
 
+save_tags <- function(tags, file, background = "white", lang = "en") {
+  libdir <- paste0(tools::file_path_sans_ext(file), "_lib")
+  htmltools::save_html(html = tags, 
+                       file = file, 
+                       background = background, 
+                       libdir = basename(libdir), 
+                       lang = lang)
+  on.exit(unlink(libdir, recursive = TRUE), add = TRUE)
+  pandoc_self_contained_html(file, file, lang)
+  invisible(file)
+}
 
-save_tags(lf_in_FR, "html/test.html")
-
-# Autre option que d'exporter à la main? https://github.com/r-spatial/mapview/issues/35
-# https://community.rstudio.com/t/save-viewer-object-rendered-in-rstudio-as-image/32796/6
-lf_in_FR
-lf_out_FR
-lf_in_EN
-lf_out_EN
-# full.height?
+save_tags(lf_in_FR, "html/inflows_FR.html", lang = "fr-FR")
+save_tags(lf_out_FR, "html/outflows_FR.html", lang = "fr-FR")
+save_tags(lf_in_EN, "html/inflows_EN.html", lang = "en-US")
+save_tags(lf_out_EN, "html/outflows_EN.html", lang = "en-US")
