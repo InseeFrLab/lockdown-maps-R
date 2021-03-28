@@ -176,6 +176,11 @@ pandoc_self_contained_html <- function(input, output, lang) {
     stop("Pandoc >= 2.0.5 must be available from R.")
   }
   
+  input <- normalizePath(input)
+  if (!file.exists(output)) {
+    file.create(output)
+  }
+  output <- normalizePath(output)
   stopifnot(is.character(lang))
   stopifnot(length(lang) == 1)
 
@@ -183,6 +188,7 @@ pandoc_self_contained_html <- function(input, output, lang) {
   html_head <- as.character(xml2::xml_find_all(xml_tree, ".//head/*"))
   include_in_header <- tempfile(fileext = ".html")
   writeLines(html_head, include_in_header)
+  on.exit(unlink(include_in_header), add = TRUE)
   
   template <- tempfile(fileext = ".html")
   writeLines(con = template, c(
@@ -198,6 +204,13 @@ pandoc_self_contained_html <- function(input, output, lang) {
     "</body>",
     "</html>"
   ))
+  on.exit(unlink(template), add = TRUE)
+  
+  outfile <- tempfile(fileext = ".html")
+  on.exit(unlink(outfile), add = TRUE)
+  
+  old_dir <- setwd(dirname(input))
+  on.exit(setwd(old_dir), add = TRUE)
   
   system2(
     rmarkdown::pandoc_exec(), 
@@ -211,14 +224,18 @@ pandoc_self_contained_html <- function(input, output, lang) {
       sprintf("--template=%s", shQuote(template)),
       input
     ),
-    stdout = output
+    stdout = outfile
   )
+  
+  file.copy(outfile, output, overwrite = TRUE)
+  
+  invisible(output)
 }
 
-save_tags <- function (tags, file) 
+save_tags <- function (tags, file, lang = "fr-FR") 
 {
   htmltools::save_html(tags, file = file)
-  pandoc_self_contained_html(file, file)
+  pandoc_self_contained_html(file, file, lang)
   file
 }
 
