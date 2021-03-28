@@ -171,22 +171,18 @@ lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%
 # Write our own pandoc_self_contained_html function
 # because rmarkdown::pandoc_self_contained_html
 # and htmlwidgets:::pandoc_self_contained_html have some bugs
-pandoc_self_contained_html <- function(input, output, lang = c("en-US", "fr-FR")) {
+pandoc_self_contained_html <- function(input, output, lang) {
   if (!rmarkdown::pandoc_available()) {
     stop("Pandoc is not available.")
   }
   
-  lang <- match.arg(lang)
-  
+  stopifnot(is.character(lang))
+  stopifnot(length(lang) == 1)
+
   xml_tree <- xml2::read_html(input)
-  
   html_head <- as.character(xml2::xml_find_all(xml_tree, ".//head/*"))
   include_in_header <- tempfile(fileext = ".html")
   writeLines(html_head, include_in_header)
-  
-  html_body <- as.character(xml2::xml_find_all(xml_tree, ".//body/*"))
-  body <- tempfile(fileext = ".md")
-  writeLines(html_body, body)
   
   template <- tempfile(fileext = ".html")
   writeLines(con = template, c(
@@ -206,14 +202,14 @@ pandoc_self_contained_html <- function(input, output, lang = c("en-US", "fr-FR")
   system2(
     rmarkdown::pandoc_exec(), 
     args = c(
-      "--from=markdown",
+      "--from=html-native_divs+raw_html-native_spans",
       "--to=html",
       "--self-contained",
       sprintf("--include-in-header=%s", shQuote(include_in_header)),
       "--metadata", "title=' '",
       "--metadata", sprintf("lang='%s'", lang),
       sprintf("--template=%s", shQuote(template)),
-      shQuote(body)
+      input
     ),
     stdout = output
   )
