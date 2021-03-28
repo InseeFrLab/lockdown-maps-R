@@ -209,8 +209,8 @@ pandoc_self_contained_html <- function(input, output, lang) {
   outfile <- tempfile(fileext = ".html")
   on.exit(unlink(outfile), add = TRUE)
   
-  old_dir <- setwd(dirname(input))
-  on.exit(setwd(old_dir), add = TRUE)
+  cur_dir <- setwd(dirname(input))
+  on.exit(setwd(cur_dir), add = TRUE)
   
   system2(
     rmarkdown::pandoc_exec(), 
