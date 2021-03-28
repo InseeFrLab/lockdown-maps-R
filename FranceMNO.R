@@ -232,19 +232,19 @@ pandoc_self_contained_html <- function(input, output, lang) {
   invisible(output)
 }
 
-save_tags <- function (tags, file, lang = "fr-FR") 
-{
-  htmltools::save_html(tags, file = file)
+save_tags <- function(html, file, background = "white", lang = "en") {
+  libdir <- paste0(tools::file_path_sans_ext(file), "_lib")
+  htmltools::save_html(html = html, 
+                       file = file, 
+                       background = background, 
+                       libdir = basename(libdir), 
+                       lang = lang)
+  on.exit(unlink(libdir, recursive = TRUE), add = TRUE)
   pandoc_self_contained_html(file, file, lang)
-  file
+  invisible(file)
 }
 
-save_tags(lf_in_FR, "test.html")
-
-# Autre option que d'exporter à la main? https://github.com/r-spatial/mapview/issues/35
-# https://community.rstudio.com/t/save-viewer-object-rendered-in-rstudio-as-image/32796/6
-lf_in_FR
-lf_out_FR
-lf_in_EN
-lf_out_EN
-# full.height?
+save_tags(lf_in_FR, "html/inflows_FR.html", lang = "fr-FR")
+save_tags(lf_out_FR, "html/outflows_FR.html", lang = "fr-FR")
+save_tags(lf_in_EN, "html/inflows_EN.html", lang = "en-US")
+save_tags(lf_out_EN, "html/outflows_EN.html", lang = "en-US")
