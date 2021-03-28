@@ -232,9 +232,9 @@ pandoc_self_contained_html <- function(input, output, lang) {
   invisible(output)
 }
 
-save_tags <- function(html, file, background = "white", lang = "en") {
+save_tags <- function(tags, file, background = "white", lang = "en") {
   libdir <- paste0(tools::file_path_sans_ext(file), "_lib")
-  htmltools::save_html(html = html, 
+  htmltools::save_html(html = tags, 
                        file = file, 
                        background = background, 
                        libdir = basename(libdir), 
