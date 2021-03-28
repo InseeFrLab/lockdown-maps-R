@@ -140,24 +140,24 @@ tm_b_and_d_out_EN = tmap_arrange(tm_before_out_EN, tm_during_out_EN, sync = TRUE
 ##################################################
 
 HTML_EN = "<div id='info' class='info legend leaflet-control' style='display:block;height:140px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
-		<div style='margin-top:5px;font-size:75%'>
-		Circles represent the population staying overnight, usual residents and residents <br>
-		from other département. The visualisation was build by CBS. The data were made <br>
-		available by INSEE. They were statistically adjusted and combined from anonymous <br> 
-		 counts provided by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
-		</div>
-		</div>
-	</div>"
+<div style='margin-top:5px;font-size:75%'>
+Circles represent the population staying overnight, usual residents and residents <br>
+from other département. The visualisation was build by CBS. The data were made <br>
+available by INSEE. They were statistically adjusted and combined from anonymous <br> 
+counts provided by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
+</div>
+</div>
+</div>"
 
 HTML_FR = "<div id='info' class='info legend leaflet-control' style='display:block;height:120px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
-		<div style='margin-top:5px;font-size:75%'>
-		Les cercles représentent la population présente en nuitées, résidents habituels <br>
-		et résidents d'autres département en nuitées. La visualisation a été construite par CBS. <br>
-	   Ces données, retraitées par l'Insee, combinent des comptages anonymes de trois <br> 
-		opérateurs de téléphonie mobiles (Bouygues telecom, SFR, Orange) <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
-		</div>
-		</div>
-	</div>"
+<div style='margin-top:5px;font-size:75%'>
+Les cercles représentent la population présente en nuitées, résidents habituels <br>
+et résidents d'autres département en nuitées. La visualisation a été construite par CBS. <br>
+Ces données, retraitées par l'Insee, combinent des comptages anonymes de trois <br> 
+opérateurs de téléphonie mobiles (Bouygues telecom, SFR, Orange) <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
+</div>
+</div>
+</div>"
 
 lf_in_FR = print(tm_b_and_d_in_FR, show = FALSE, full.height = TRUE) %>%  
 	htmlwidgets::appendContent(htmltools::HTML(HTML_FR)) 
@@ -168,28 +168,65 @@ lf_out_FR = print(tm_b_and_d_out_FR, show = FALSE, full.height = TRUE) %>%
 lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%  
 	htmlwidgets::appendContent(htmltools::HTML(HTML_EN)) 
 
+# Write our own pandoc_self_contained_html function
+# because rmarkdown::pandoc_self_contained_html
+# and htmlwidgets:::pandoc_self_contained_html have some bugs
+pandoc_self_contained_html <- function(input, output, lang = c("en-US", "fr-FR")) {
+  if (!rmarkdown::pandoc_available()) {
+    stop("Pandoc is not available.")
+  }
+  
+  lang <- match.arg(lang)
+  
+  xml_tree <- xml2::read_html(input)
+  
+  html_head <- as.character(xml2::xml_find_all(xml_tree, ".//head/*"))
+  include_in_header <- tempfile(fileext = ".html")
+  writeLines(html_head, include_in_header)
+  
+  html_body <- as.character(xml2::xml_find_all(xml_tree, ".//body/*"))
+  body <- tempfile(fileext = ".md")
+  writeLines(html_body, body)
+  
+  template <- tempfile(fileext = ".html")
+  writeLines(con = template, c(
+    "<!DOCTYPE html>",
+    "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"$lang$\" xml:lang=\"$lang$\">",
+    "<head>",
+    "$for(header-includes)$",
+    "  $header-includes$",
+    "$endfor$",
+    "</head>",
+    "<body>",
+    "$body$",
+    "</body>",
+    "</html>"
+  ))
+  
+  system2(
+    rmarkdown::pandoc_exec(), 
+    args = c(
+      "--from=markdown",
+      "--to=html",
+      "--self-contained",
+      sprintf("--include-in-header=%s", shQuote(include_in_header)),
+      "--metadata", "title=' '",
+      "--metadata", sprintf("lang='%s'", lang),
+      sprintf("--template=%s", shQuote(template)),
+      shQuote(body)
+    ),
+    stdout = output
+  )
+}
 
 save_tags <- function (tags, file) 
 {
-  
   htmltools::save_html(tags, file = file)
-  rmarkdown::pandoc_self_contained_html(file, file)
+  pandoc_self_contained_html(file, file)
   file
 }
 
-
 save_tags(lf_in_FR, "test.html")
-
-htmltools::save_html(lf_in_FR, "test.html")
-
-pandoc_self_contained_html <- function(input, output) {
-  xml_tree <- xml2::read_html(input)
-  in_head <- paste0(as.character(xml2::xml_find_all(xml_tree, ".//head/*")), collapse = "\n")
-  html_body <- paste0(as.character(xml2::xml_find_all(xml_tree, ".//body/*")), collapse = "\n")
-  md_file <- tempfile(fileext = ".md")
-  writeLines(html_body, md_file)
-  
-}
 
 # Autre option que d'exporter à la main? https://github.com/r-spatial/mapview/issues/35
 # https://community.rstudio.com/t/save-viewer-object-rendered-in-rstudio-as-image/32796/6
