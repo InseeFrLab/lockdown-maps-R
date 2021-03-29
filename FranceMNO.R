@@ -19,32 +19,16 @@ setwd('~/lockdown-maps-R/')
 
 # load script to make donuts
 source("R/bake_donuts.R")
+source("R/maps_utils.R")
 
 ##################################################
 #### load data
 ##################################################
-
-departement_centroids <- function() {
-  httr::GET("https://www.ign.fr/publications-de-l-ign/centre-departements/Centre_departement.xlsx", httr::write_disk(tf <- tempfile(fileext = ".xlsx")))
-  dep <- readxl::read_excel(tf, skip = 2, col_names = c('code','name','Aire','lon','lat','commune'))
-  dep$lon <- gsub('O$','W', dep$lon)
-  dep$lon <- as.numeric(sp::char2dms(dep$lon, chd = "°", chm="'", chs="\""))
-  dep$lat <- as.numeric(sp::char2dms(dep$lat, chd = "°", chm="'", chs="\""))
-  
-  dep <- dep %>% sf::st_as_sf(coords = c('lon','lat')) %>% sf::st_set_crs(4326) %>% sf::st_transform(2154)
-  dep$name[dep$code %in% c("2A","2B")] <- "Corse"
-  dep$code[dep$code %in% c('2A', '2B')] <- "2AB" 
-  
-  dep <-
-    dep %>% group_by(code, name) %>% summarise(geometry = st_centroid(st_union(geometry))) %>% ungroup()
-  
-  return(dep)
-}
-
 dm_centroid <- departement_centroids()
+
 # check dm and dm_centroid
 tmap_mode("view")
-qtm(dm) + qtm(dm_centroid)
+qtm(dm_centroid)
 
 data <- read.csv('data/data.csv')
 
