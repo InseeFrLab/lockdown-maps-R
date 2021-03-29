@@ -256,9 +256,9 @@ sync_tmaps <- function(list_tmaps) {
   
   synctmaps <-
     lapply(
-      seq(1, length(list_tmaps), 2),
+      c(1:4),
       FUN = function(i)
-        tmap_arrange(list_tmaps[[i]], list_tmaps[[i + 1]])
+        tmap_arrange(list_tmaps[[i]], list_tmaps[[i + 4]])
     )
   return(synctmaps)
 }

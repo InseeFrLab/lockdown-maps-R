@@ -7,6 +7,9 @@
 # 
 library(targets)
 
+source("R/bake_donuts.R")
+source("R/maps_utils.R")
+
 tar_option_set(
   packages = c(
     "tidyverse",
@@ -21,9 +24,6 @@ tar_option_set(
 )
 
 
-source("R/bake_donuts.R")
-source("R/maps_utils.R")
-
 list(
   tar_target(langue, c("fr-FR", "en-US")),
   tar_target(inflows, c(TRUE, FALSE)),
@@ -31,12 +31,12 @@ list(
     titles,
     c(
       "Flux entrants avant le 1er confinement",
-      "Flux entrants après",
-      "Flux sortants avant le 1er confinement",
-      "Flux sortants après",
       "Inflows before the 1rst lockdown",
-      "Inflows after the 1rst lockdown",
+      "Flux sortants avant le 1er confinement",
       "Outflows before the 1rst lockdown",
+      "Flux entrants après",
+      "Inflows after the 1rst lockdown",
+      "Flux sortants après",
       "Outflows after the 1rst lockdown"
     )
   ),
@@ -61,21 +61,20 @@ list(
 		</div>
 		</div>
 	</div>"
-               ),
-               each = 2
+               ),2
              )),
   tar_target(
     htmls_files,
     c(
       'html/inflows_FR.html',
-      'html/outflows_FR.html',
       'html/inflows_EN.html',
+      'html/outflows_FR.html',
       'html/outflows_EN.html'
     )
   ),
   tar_target(
     htmls_langue,
-    rep(langue, each = 2)),
+    rep(langue, 2)),
     tar_target(dm_centroid, departement_centroids()),
     tar_target(ODs, get_ODs(), iteration = "list"),
     tar_target(
