@@ -1,145 +1,58 @@
 if (!requireNamespace("odf")) remotes::install_github("mtennekes/odf")
-library(odf) # this is a class package for OD data, but in development
+remotes::install_github("r-spatial/leafsync") # requires the github version of leafsync
+remotes::install_github("mtennekes/tmap") # latest github version of tmap required to improve the popups
 
+library(odf) 
 library(tidyverse)
 library(sf)
 library(remotes)
-
-remotes::install_github("r-spatial/leafsync") # requires the github version of leafsync
-remotes::install_github("mtennekes/tmap") # latest github version of tmap required to improve the popups
 library(tmap)
 library(tmaptools)
-
 library(leafsync)
-#library(remotes)
 library(htmlwidgets)
 library(htmltools)
 
-setwd('~/lockdown-maps-R/')
 
-# load script to make donuts
 source("R/bake_donuts.R")
+source("R/maps_utils.R")
 
-##################################################
-#### load data
-##################################################
+# -- load data
+dm_centroid <- departement_centroids()
+ODs <- get_ODs()
 
-dm = st_read("data/departements2154_dm.geojson", stringsAsFactors = FALSE)
-dm$libelle[dm$code %in% c('2A','2B')] <- "Corse"
-dm$code[dm$code %in% c('2A','2B')] <- "2AB"
-dm <- dm %>% group_by(code,libelle) %>% summarise(geometry = st_union(geometry)) %>% ungroup()
+# -- create od objects
+ODsGeo <- lapply(ODs, FUN = function(od) get_ODsGeo(od, dm_centroid))
 
-# extract centroids
-dm_centroid = dm %>% 
-	st_centroid(of_largest_polygon = TRUE) %>% 
-	select(code = code, name = libelle)
-dm_centroid$geometry[dm_centroid$code == '2AB'] <- sf::st_point(x = c(1199785, 6124519))
-
-# check dm and dm_centroid
-tmap_mode("view")
-qtm(dm) + qtm(dm_centroid)
-
-data <- read.csv('data/data.csv')
-
-# the OD dataset before lockdown
-od_before = data %>% 
-  select(code_from = departementRes,
-         code_to = departementPres,
-         flow = popPres_before)
-
-# the OD dataset during lockdown
-od_during = data %>% 
-  select(code_from = departementRes,
-         code_to = departementPres,
-         flow = popPres_after)
-
-
-##################################################
-#### create OD data objects (class 'od') and set plot settings
-##################################################
-
-
-# Create od objects
-x_before <- od(od_before, dm_centroid, col_orig = "code_from", col_dest = "code_to", col_id = "code")
-x_during <- od(od_during, dm_centroid, col_orig = "code_from", col_dest = "code_to", col_id = "code")
-
-
-# specific departments (in this example Paris) for which specific colors are used:
-highlightFR = c("Paris et petite couronne","Alpes (Savoie, Haute-Savoie, Hautes-Alpes)")
-highlightEN = c("Paris area","Alps area")
-
-# the color palette should consist of (length(highlight) + 2) colors, where the last two are recommended to be {blue} and {gray} (for other and home region respectively)
-pal <- c(setdiff(colorspace::qualitative_hcl(length(highlightFR), palette = "Dark3", c = 100, l = 50),"#3573E2" ), "#3573E2" ,"gray70")
-
-##################################################
-#### create plots
-##################################################
-
-textEN = list(legend_title = "Overnight Stay",  
-			  legend_other = "Other area (département)",
-			  legend_stay = "Home département",
-			  
-			  popup_residents = "Residents",
-			  popup_stay = "Staying",
-			  popup_outflow = "Outflow",
-			  popup_to = "&nbsp;&nbsp;&nbsp;&nbsp;",  # four spaces before highlighed regions
-			  popup_other = "&nbsp;&nbsp;&nbsp;&nbsp;other départements",
-			  popup_inflow = "Inflow",
-			  edge_to = "to",
-			  edge_flow = "Flow")
-
-textFR = list(legend_title = "Département de nuitée",  
-			  legend_other = "Autres départements",
-			  legend_stay = "Département de résidence",
-			  popup_residents = "Résidents",
-			  popup_stay = "Restant dans leur département",
-			  popup_outflow = "Allant dans un autre département",
-			  popup_to = "&nbsp;&nbsp;&nbsp;&nbsp;",  # four spaces before highlighed regions
-			  popup_other = "&nbsp;&nbsp;&nbsp;&nbsp;autres départements",
-			  popup_inflow = "Provenant d'autres départements",
-			  edge_to = "vers",
-			  edge_flow = "Flux")
-
-
-groupsFR = list(
-	list(codes = c("75", "92", "94", "93"), 
-		 longlat = c(2.3488, 48.8534), 
-		 name = "Paris et petite couronne", code = "999", donut = TRUE, inflow = TRUE, outflow = TRUE),
-	list(codes = c("05", "73", "74"), longlat = c(6.3927, 45.6755), name = "Alpes (Savoie, Haute-Savoie, Hautes-Alpes)", code = "9999", donut = TRUE, inflow = TRUE, outflow = TRUE))
-
-
-groupsEN = list(
-	list(codes = c("75", "92", "94", "93"), 
-		 longlat = c(2.3488, 48.8534), 
-		 name = "Paris area", code = "999", donut = TRUE, inflow = TRUE, outflow = TRUE),
-	list(codes = c("05", "73", "74"), longlat = c(6.3927, 45.6755), name = "Alps area", code = "9999", donut = TRUE, inflow = TRUE, outflow = TRUE))
-
-
-map_version <- function(x, text = textEN, highlight = highlightEN, groups = groupsEN, inflows = TRUE, title = "Inflows before lockdown"){
-	bake_donuts(x, highlight = highlight, pal = pal, donut_size_max = 2.5e6, donut_size_min = .15e6, flow_max = 70000, flow_th = 5000, flow_buffer = 2000, text = text, groups = groups, edge_incoming = inflows, title = title, round_to = 1000)
+# -- tmaps
+langue <- c("fr-FR", "en-US")
+inflows <- c(TRUE,FALSE)
+title <- function(i, inflows, langue){
+  titles <- data.frame(title = c(
+    "Flux entrants avant le 1er confinement",
+    "Inflows before the 1rst lockdown",
+    "Flux sortants avant le 1er confinement",
+    "Outflows before the 1rst lockdown",
+    "Flux entrants après",
+    "Inflows after the 1rst lockdown",
+    "Flux sortants après",
+    "Outflows after the 1rst lockdown"
+  ), before = rep(c(1,2), each = 4), 
+     inflow = rep(rep(c(TRUE,FALSE), each = 2),2),
+     lang = rep(c("fr-FR", "en-US"), 4))
+  titles[titles$before == i & titles$inflow==inflows & titles$lang == langue, "title"]
 }
+tMaps <- lapply(langue, FUN = function(lang)
+                lapply(inflows, FUN = function(inflow)
+                  lapply(1:2, FUN = function(i)
+                              build_tmap(ODsGeo[[i]], inflow, lang, title(i = i, inflows = inflow, langue = lang)))))
 
-tm_before_in_EN <- map_version(x_before, textEN, highlightEN, groupsEN, inflows = TRUE,  title = "Inflows before the first lockdown")
-tm_before_out_EN <- map_version(x_before, textEN, highlightEN, groupsEN, inflows = FALSE,  title = "Outflows before the first lockdown")
-tm_during_in_EN <- map_version(x_during, textEN, highlightEN, groupsEN, inflows = TRUE,  title = "Inflows during the first lockdown")
-tm_during_out_EN <- map_version(x_during, textEN, highlightEN, groupsEN, inflows = FALSE,  title = "Outflows during the first lockdown")
 
-tm_before_in_FR <- map_version(x_before, textFR, highlightFR, groupsFR, inflows = TRUE,  title = "Flux entrants avant le premier confinement")
-tm_before_out_FR <- map_version(x_before, textFR, highlightFR, groupsFR, inflows = FALSE,  title = "Flux sortants avant le premier confinement")
-tm_during_in_FR <- map_version(x_during, textFR, highlightFR, groupsFR, inflows = TRUE,  title = "Flux entrants pendant le premier confinement")
-tm_during_out_FR <- map_version(x_during, textFR, highlightFR, groupsFR, inflows = FALSE,  title = "Flux sortants pendant le premier confinement")
-
-# plot side by side
-tm_b_and_d_in_FR = tmap_arrange(tm_before_in_FR, tm_during_in_FR, sync = TRUE)
-tm_b_and_d_out_FR = tmap_arrange(tm_before_out_FR, tm_during_out_FR, sync = TRUE)
-tm_b_and_d_in_EN = tmap_arrange(tm_before_in_EN, tm_during_in_EN, sync = TRUE)
-tm_b_and_d_out_EN = tmap_arrange(tm_before_out_EN, tm_during_out_EN, sync = TRUE)
-
-##################################################
-#### add text for side-by-side plot
-##################################################
-
-HTML_EN = "<div id='info' class='info legend leaflet-control' style='display:block;height:80px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+# -- Synchronized tmaps
+synctMaps <- lapply(1:length(langue), FUN = function(i_lang)
+                lapply(1:length(inflows), FUN = function(i_inflow)
+                  tmap_arrange(tMaps[[i_lang]][[i_inflow]])))
+    
+HTMLInfos <- c("<div id='info' class='info legend leaflet-control' style='display:block;height:80px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Circles represent the population staying overnight, usual residents and residents <br>
 		from other département. The visualisation was build by CBS. The data were made <br>
@@ -147,9 +60,8 @@ HTML_EN = "<div id='info' class='info legend leaflet-control' style='display:blo
 		 counts provided by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
 		</div>
-	</div>"
-
-HTML_FR = "<div id='info' class='info legend leaflet-control' style='display:block;height:120px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+	</div>",
+	"<div id='info' class='info legend leaflet-control' style='display:block;height:120px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Les cercles représentent la population présente en nuitées, résidents habituels <br>
 		et résidents d'autres département en nuitées. La visualisation a été construite par CBS. <br>
@@ -157,94 +69,31 @@ HTML_FR = "<div id='info' class='info legend leaflet-control' style='display:blo
 		opérateurs de téléphonie mobiles (Bouygues telecom, SFR, Orange) <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
 		</div>
-	</div>"
+	</div>")
 
-lf_in_FR = print(tm_b_and_d_in_FR, show = FALSE, full.height = TRUE) %>%  
-	htmlwidgets::appendContent(htmltools::HTML(HTML_FR)) 
-lf_in_EN = print(tm_b_and_d_in_EN, show = FALSE, full.height = TRUE) %>%  
-	htmlwidgets::appendContent(htmltools::HTML(HTML_EN)) 
-lf_out_FR = print(tm_b_and_d_out_FR, show = FALSE, full.height = TRUE) %>%  
-	htmlwidgets::appendContent(htmltools::HTML(HTML_FR)) 
-lf_out_EN = print(tm_b_and_d_out_EN, show = FALSE, full.height = TRUE) %>%  
-	htmlwidgets::appendContent(htmltools::HTML(HTML_EN)) 
+# --- With infos.
+synctMapsInfo <- lapply(1:length(langue), FUN = function(i_lang)
+                    lapply(1:length(inflows), FUN = function(i_inflow)
+                              print(synctMaps[[i_lang]][[i_inflow]], show = FALSE, full.height = TRUE) %>%  
+    htmlwidgets::appendContent(htmltools::HTML(HTMLInfos[i_lang]))))
+  
 
-# Write our own pandoc_self_contained_html function
-# because rmarkdown::pandoc_self_contained_html
-# and htmlwidgets:::pandoc_self_contained_html have some bugs
-pandoc_self_contained_html <- function(input, output, lang) {
-  if (!rmarkdown::pandoc_available("2.0.5")) {
-    stop("Pandoc >= 2.0.5 must be available from R.")
-  }
-  
-  input <- normalizePath(input)
-  if (!file.exists(output)) {
-    file.create(output)
-  }
-  output <- normalizePath(output)
-  stopifnot(is.character(lang))
-  stopifnot(length(lang) == 1)
+html_name <- function(inflows, langue){
+  names <- data.frame(name = c(
+    'html/inflows_FR.html',
+    'html/inflows_EN.html',
+    'html/outflows_FR.html',
+    'html/outflows_EN.html'
+  ), 
+  inflow = rep(c(TRUE,FALSE), each = 2),
+  lang = rep(c("fr-FR", "en-US"), 2))
+  names[names$inflow==inflows & names$lang == langue, "name"]
+}
 
-  xml_tree <- xml2::read_html(input)
-  html_head <- as.character(xml2::xml_find_all(xml_tree, ".//head/*"))
-  include_in_header <- tempfile(fileext = ".html")
-  writeLines(html_head, include_in_header)
-  on.exit(unlink(include_in_header), add = TRUE)
-  
-  template <- tempfile(fileext = ".html")
-  writeLines(con = template, c(
-    "<!DOCTYPE html>",
-    "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"$lang$\" xml:lang=\"$lang$\">",
-    "<head>",
-    "$for(header-includes)$",
-    "  $header-includes$",
-    "$endfor$",
-    "</head>",
-    "<body>",
-    "$body$",
-    "</body>",
-    "</html>"
-  ))
-  on.exit(unlink(template), add = TRUE)
-  
-  outfile <- tempfile(fileext = ".html")
-  on.exit(unlink(outfile), add = TRUE)
-  
-  cur_dir <- setwd(dirname(input))
-  on.exit(setwd(cur_dir), add = TRUE)
-  
-  system2(
-    rmarkdown::pandoc_exec(), 
-    args = c(
-      "--from=html-native_divs-native_spans+raw_html+empty_paragraphs",
-      "--to=html",
-      "--self-contained",
-      sprintf("--include-in-header=%s", shQuote(include_in_header)),
-      "--metadata", "title=' '",
-      "--metadata", sprintf("lang='%s'", lang),
-      sprintf("--template=%s", shQuote(template)),
-      input
-    ),
-    stdout = outfile
+# --- save htmls
+lapply(1:length(langue), FUN = function(i_lang)
+  lapply(1:length(inflows), FUN = function(i_inflow)
+    save_tags(synctMapsInfo[[i_lang]][[i_inflow]], html_name(inflows = (i_inflow == 1),langue[i_lang]), lang = langue[i_lang])
   )
-  
-  file.copy(outfile, output, overwrite = TRUE)
-  
-  invisible(output)
-}
-
-save_tags <- function(tags, file, background = "white", lang = "en") {
-  libdir <- paste0(tools::file_path_sans_ext(file), "_lib")
-  htmltools::save_html(html = tags, 
-                       file = file, 
-                       background = background, 
-                       libdir = basename(libdir), 
-                       lang = lang)
-  on.exit(unlink(libdir, recursive = TRUE), add = TRUE)
-  pandoc_self_contained_html(file, file, lang)
-  invisible(file)
-}
-
-save_tags(lf_in_FR, "html/inflows_FR.html", lang = "fr-FR")
-save_tags(lf_out_FR, "html/outflows_FR.html", lang = "fr-FR")
-save_tags(lf_in_EN, "html/inflows_EN.html", lang = "en-US")
-save_tags(lf_out_EN, "html/outflows_EN.html", lang = "en-US")
+)
+    
