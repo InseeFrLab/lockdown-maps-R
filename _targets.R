@@ -5,7 +5,7 @@
 # remotes::install_github("r-spatial/leafsync") # requires the github version of leafsync
 # remotes::install_github("mtennekes/tmap") # latest github version of tmap required to improve the popups
 # 
-# library(targets)
+library(targets)
 
 tar_option_set(
   packages = c(

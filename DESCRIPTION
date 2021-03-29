@@ -18,7 +18,8 @@ Imports:
     sf,
     htmltools,
     htmlwidgets,
-    leafsync
+    leafsync,
+    readxl
 Remotes:
     mtennekes/odf
     r-spatial/leafsync
