@@ -61,6 +61,7 @@ bake_donuts = function(x,
   groups = list(),
   mute = NULL,
   legend = TRUE,
+  group_label_show = FALSE,
   group_label_cex = 1, 
   group_trunc_m = 2000,
   border = NULL,
@@ -414,7 +415,7 @@ bake_donuts = function(x,
     tm_symbols(size = "size", scale = donut_scale, size.max =  donut_size_max, id = "name", popup.vars = names(vars),
                shape = "name", shapes = grobs_oth, legend.shape.show = FALSE, grob.dim = c(width = 48, height = 48, render.width = 96, render.height = 96), group = groupname, popup.format = list(html.escape = FALSE))
   
-  if (length(groups)) {
+  if (length(groups) && group_label_show) {
     group_names = paste(text$from, sapply(groups, function(g) g$name))
     group_points = sf::st_sfc(lapply(groups, function(g) sf::st_point(g$longlat)), crs = 4326)
     

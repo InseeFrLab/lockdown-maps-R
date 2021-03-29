@@ -139,7 +139,7 @@ tm_b_and_d_out_EN = tmap_arrange(tm_before_out_EN, tm_during_out_EN, sync = TRUE
 #### add text for side-by-side plot
 ##################################################
 
-HTML_EN = "<div id='info' class='info legend leaflet-control' style='display:block;height:140px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+HTML_EN = "<div id='info' class='info legend leaflet-control' style='display:block;height:80px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Circles represent the population staying overnight, usual residents and residents <br>
 		from other département. The visualisation was build by CBS. The data were made <br>
