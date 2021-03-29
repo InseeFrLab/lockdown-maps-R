@@ -24,17 +24,24 @@ source("R/bake_donuts.R")
 #### load data
 ##################################################
 
-dm = st_read("data/departements2154_dm.geojson", stringsAsFactors = FALSE)
-dm$libelle[dm$code %in% c('2A','2B')] <- "Corse"
-dm$code[dm$code %in% c('2A','2B')] <- "2AB"
-dm <- dm %>% group_by(code,libelle) %>% summarise(geometry = st_union(geometry)) %>% ungroup()
+departement_centroids <- function() {
+  httr::GET("https://www.ign.fr/publications-de-l-ign/centre-departements/Centre_departement.xlsx", httr::write_disk(tf <- tempfile(fileext = ".xlsx")))
+  dep <- readxl::read_excel(tf, skip = 2, col_names = c('code','name','Aire','lon','lat','commune'))
+  dep$lon <- gsub('O$','W', dep$lon)
+  dep$lon <- as.numeric(sp::char2dms(dep$lon, chd = "°", chm="'", chs="\""))
+  dep$lat <- as.numeric(sp::char2dms(dep$lat, chd = "°", chm="'", chs="\""))
+  
+  dep <- dep %>% sf::st_as_sf(coords = c('lon','lat')) %>% sf::st_set_crs(4326) %>% sf::st_transform(2154)
+  dep$name[dep$code %in% c("2A","2B")] <- "Corse"
+  dep$code[dep$code %in% c('2A', '2B')] <- "2AB" 
+  
+  dep <-
+    dep %>% group_by(code, name) %>% summarise(geometry = st_centroid(st_union(geometry))) %>% ungroup()
+  
+  return(dep)
+}
 
-# extract centroids
-dm_centroid = dm %>% 
-	st_centroid(of_largest_polygon = TRUE) %>% 
-	select(code = code, name = libelle)
-dm_centroid$geometry[dm_centroid$code == '2AB'] <- sf::st_point(x = c(1199785, 6124519))
-
+dm_centroid <- departement_centroids()
 # check dm and dm_centroid
 tmap_mode("view")
 qtm(dm) + qtm(dm_centroid)
