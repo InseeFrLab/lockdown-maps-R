@@ -1,7 +1,7 @@
 # Dataviz: Population movements at Spring 2020 lockdown in France
 
-[DataViz (FR)](https://inseefrlab.github.io/lockdown-maps-r/inflows_FR.html)
 [DataViz (EN)](https://inseefrlab.github.io/lockdown-maps-r/inflows_EN.html)
+[DataViz (FR)](https://inseefrlab.github.io/lockdown-maps-r/inflows_FR.html)
 
 On the 17th of march 2020, France entered its first strict national lockdown in an effort to curb the covid-19 pandemic. Announced a few days before, the population had some leverage to choose where to spend the period. At this time, INSEE, the French national institutes, estimated that Paris lost about 450,000 metropolitan residents compared to 2020 first months, half of which were usual Paris residents. These population surpluses were broadly distributed across France. As a general stylized fact (Paris set aside), the population was closer to its usual residence during the lockdown: motives for overnight stays in other regions such as tourism, family visits or business trips were strongly restricted. For instance, the winter season ended abruptly in the Alps with the closing of ski resorts: seasonal workers and tourists left. These estimates were produced thanks to the partnerships with three Mobile Network Operators, which provided anonymous counts of nightly presence by usual residency. They were statistically adjusted and combined by INSEE [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407).
 
@@ -31,7 +31,7 @@ These two data sets are considered by Insee as **experimental**: the new data so
 
 ## Visualisation
 
-XXX @mtennekes
+CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualisation tool.  @mtennekes
 
 ## References
 
@@ -48,7 +48,8 @@ INSEE press release of May 18, “Population présente sur le territoire avant e
 
 # Dataviz: Mouvements de population autour du confinement de mars 2020.
 
-[Visualisation](LINK)
+[DataViz (EN)](https://inseefrlab.github.io/lockdown-maps-r/inflows_EN.html)
+[DataViz (FR)](https://inseefrlab.github.io/lockdown-maps-r/inflows_FR.html)
 
 Galiana et al. (2020) documentent les mouvements de population autour du confinement de mars 2020 à partir d'indicateurs anonymes issus de la téléphonie mobile fournis à l'Insee par trois opérateurs de téléphonie mobile et que l'Insee a combiné aux estimations annuelles de population. Pour compléter ces résultats, une seconde exploitation a été réalisée en partenariat avec CBS (Institut de Statistiques Néerlandais) permettant une visualisation fine des changements de population observés avant, et pendant, le premier confinement. Celle-ci offre la possibilité d’observer, de façon interactive et département par département, les changements observés (flux entrants et flux sortants). Les données mobilisées dans cette visualisation sont accessibles [ici](LINK).
 
@@ -62,14 +63,21 @@ _Département de résidence_ : Il s'agit du département de résidence "usuelle"
 
 ## Méthode et Source 
 
-La méthode décrite dans Galiana et al. (2020) a été étendue à tous les couples départements de présence, département de résidence. Les sources sont décrites dans Galiana et al. (2020). Les données publiées en mai fournissent une information en différence qui restent la référence, et ventilées pour les seuls résidents parisiens. XXX Lien nouvelles données XXX
+La méthode décrite dans Galiana et al. (2020) a été étendue à tous les couples départements de présence, département de résidence. Les sources sont décrites dans Galiana et al. (2020). Les données publiées en mai fournissent une information en différence qui restent la référence, et ventilées pour les seuls résidents parisiens. 
+
+## Données 
+
+[Données agrégées publiées en mai 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates
+[Données de la dataviz, publiées en avril 2021](LINK): allows re-use by disseminating flows
 
 ## Précautions d'usage des données
 
 L’Insee considère ces résultats comme **expérimentaux**. Au même titre que dans Galiana et al. (2020), il faut souligner qu'il s'agit de statistiques expérimentales sujettes à des imprécisions du fait du type de données mobilisées et de leurs incertitudes inhérentes. De plus, ces nouvelles estimations réalisées au niveau de chaque couple département de résidence, département de présence, sont publiées arrondies à la centaine afin de permettre des ré-agrégations comme celles permettant de déployer l’outil de visualisation. Il est cependant préférable d'interpréter les croisements et aggrégations obtenues en arrondissant au millier de personnes. La méthodologie retenue amène à tenir constante la population résidente présente sur l'ensemble du territoire (et égale à la population résidente en France métropolitaine estimée au 1er janvier 2021). Pour autant la présence de valeurs manquantes et d'erreurs d'arrondis peut conduire à des légères variations qui ne sont pas interprétables comme un fait statistique.
 
 ## Visualisation 
-CBS a réalisé l'outil de visualisation. XX Lien vers la visualisation néerlandaise XX
+
+CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de visualisation. 
+
 
 ## Références
 
