@@ -11,7 +11,7 @@ One year after, a richer (though a bit more fragile) [dataset](LINK) was release
 
 ## Some definitions
 
-Population movements are defined by the number of persons spending the night in _département_ (NUTS-3 administrative division) d while being usual resident in _département_ r. For instance, Paris attracts a large number of people who are staying overnight for business, tourism or other reasons. These low-frequency flows are estimated on data of 3 mobile network operators (MNO) covering 16 of January to 16 of March 2020 on one hand (before lockdown) and 17 of March to 11 of May 2020 (during lockdown).
+Population movements are defined by the number of persons spending the night in _département_ (NUTS-3 French administrative division) `d` while being usual resident in _département_ `r`. For instance, Paris attracts a large number of people who are staying overnight for business, tourism or other reasons. These low-frequency flows are estimated on data of 3 mobile network operators (MNO) covering 16th of January to 16th of March 2020 on one hand (before lockdown) and 17th of March to 11th of May 2020 (during lockdown).
 
 _Overnight Stay département_ For each MNO, a mobile phone is considered as staying overnight if it is stable geographically over a significant period between midnight and 6a.m.. Such counts - provided by usual place of residency - are combined and adjusted with Insee population counts to form three similar time series, one per each MNO.
 
