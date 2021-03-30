@@ -13,8 +13,8 @@ library(htmlwidgets)
 library(htmltools)
 
 
-source("R/bake_donuts.R")
-source("R/maps_utils.R")
+source("R/bake_donuts.R", encoding = "UTF-8")
+source("R/maps_utils.R", encoding = "UTF-8")
 
 vizLink <- 'https://InseeFrLab.github.io/lockdown-maps-R/'
 # -- load data
