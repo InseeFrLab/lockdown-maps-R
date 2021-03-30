@@ -1,5 +1,5 @@
 Package: lockdown-maps-R
-Title: Dataviz before/after first lockdown (march 2020)
+Title: Dataviz before/after first lockdown (March 2020)
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Milena",
