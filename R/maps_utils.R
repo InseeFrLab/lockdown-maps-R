@@ -155,10 +155,11 @@ map_parameters <- function(langue = 'en-US') {
 }
 
 
-build_tmap <- function(od, inflow, langue, title) {
+build_tmap <- function(od, totals, inflow, langue, title) {
   param <- map_parameters(langue)
   bake_donuts(
     od,
+    totals,
     highlight = param$highlight,
     pal = param$pal,
     donut_size_max = 2.5e6,
