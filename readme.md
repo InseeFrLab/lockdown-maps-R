@@ -59,7 +59,7 @@ _Département de résidence:_ Il s'agit du département de résidence ``usuelle'
 
 ## Méthode et Source 
 
-La méthode décrite dans Galiana et al. (2020) a été étendue à tout les couples départements de présence, département de résidence. Les sources sont décrites dans Galiana et al. (2020). Les données publiées en mai fournissent une information en différence qui restent la référence, et ventilés pour les seuls résidents Parisiens. XXX Lien nouvelles données XXX
+La méthode décrite dans Galiana et al. (2020) a été étendue à tous les couples départements de présence, département de résidence. Les sources sont décrites dans Galiana et al. (2020). Les données publiées en mai fournissent une information en différence qui restent la référence, et ventilées pour les seuls résidents parisiens. XXX Lien nouvelles données XXX
 
 ## Précautions d'usage des données
 
