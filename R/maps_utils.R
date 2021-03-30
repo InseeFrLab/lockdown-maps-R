@@ -302,7 +302,7 @@ pandoc_self_contained_html <- function(input, output, lang) {
       "--self-contained",
       sprintf("--include-in-header=%s", shQuote(include_in_header)),
       "--metadata", "title=' '",
-      "--metadata", sprintf("lang='%s'", lang),
+      "--metadata", sprintf("lang=%s", shQuote(lang)),
       sprintf("--template=%s", shQuote(template)),
       input
     ),
