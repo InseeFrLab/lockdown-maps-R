@@ -23,8 +23,10 @@ jobs:
 
       - uses: r-lib/actions/setup-r@master
 
-      - uses: r-lib/actions/setup-pandoc@master
-      
+      - uses: r-lib/actions/setup-pandoc@v1
+        with:
+          pandoc-version: '2.11.2'
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
