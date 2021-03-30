@@ -4,3 +4,5 @@
 .Ruserdata
 html/
 _targets/
+*.html
+*.pdf
