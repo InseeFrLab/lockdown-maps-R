@@ -10,7 +10,7 @@ One year after, a richer (though a bit more fragile) [dataset](LINK) was release
 
 ## Some definitions
 
-Population movements are defined by the number of persons spending the night in _département_ (NUTS3) `d` while being usual resident in _département_ `r`. For instance, Paris attracts a large number of people who are staying overnight for business, tourism or other reasons. These low-frequency flows are estimated on data of 3 mobile network operators (MNO) covering 16th of January to 16th of March 2020 on one hand (before lockdown) and 17th of March to 11th of May 2020 (during lockdown).
+Population movements are defined by the number of persons spending the night in _département_ (NUTS3) `d` while being usual resident in _département_ `r`. For instance, Paris attracts a large number of people who are staying overnight for business, tourism or other reasons. These low-frequency ''flows'' are estimated on data of 3 mobile network operators (MNO) covering 16th of January to 16th of March 2020 on one hand (before lockdown) and 17th of March to 11th of May 2020 (during lockdown).
 
 _Overnight Stay département_: For each MNO, a mobile phone is considered as staying overnight if it is stable geographically over a significant period between midnight and 6a.m.. Such counts - provided by usual place of residency - are combined and adjusted with Insee population counts to form three similar time series, one per each MNO.
 
@@ -18,7 +18,7 @@ _Residency département_ It is the _département_ of ''usual'' residency, whose 
 
 ## Method
 
-The method was described in  [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407) (French only). It amounts to running a linear regression for each couple _département_ of residency cross _département_ of overnight stays `(d,r)` to smooth the three adjusted time series in a single average estimate of population before and after lockdown. This is done because the three series may disagree, and daily data are not sufficiently robust to change in mobile phone use or punctual absence of data for some regions.
+The method to construct population estimates before and during lockdown was described in  [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407) (French only). It amounts to running a linear regression for each couple _département_ of residency cross _département_ of overnight stays `(d,r)` to smooth the three adjusted time series in a single average estimate of population before and after lockdown. This is done because the three series may disagree, and daily data are not sufficiently robust to change in mobile phone use or punctual absence of data for some regions.
 
 ## Data
 
@@ -38,6 +38,10 @@ XXX @mtennekes
 Galiana, L. Suarez Castillo, M., Sémécurbe, F. Coudin, E., de Bellefon, M.-P. (2020), "Retour	partiel des mouvements de  population avec le déconfinement", Insee Analyses N°54, INSEE  
 		
 Tennekes, M. and Chen, M. (2021) Design Space of Origin-Destination Data Visualization.	Forthcoming in Eurographics <br> Conference on Visualization (EuroVis) 2021
+
+INSEE press release of April 8, “Population présente sur le territoire avant et après le début du confinement : résultats provisoires”, https://www.insee.fr/fr/information/4477356
+
+INSEE press release of May 18, “Population présente sur le territoire avant et après le début du confinement : résultats consolidés”, https://www.insee.fr/fr/information/4493611
 
 [Que peut faire l’Insee à partir des données de téléphonie mobile ? Mesures de population présente en temps de confinement et statistiques expérimentales](https://blog.insee.fr/que-peut-faire-linsee-a-partir-des-donnees-de-telephonie-mobile-mesure-de-population-presente-en-temps-de-confinement-et-statistiques-experimentales/), billet de blog, Insee
 
@@ -73,5 +77,9 @@ Galiana, L. Suarez Castillo, M., Sémécurbe, F. Coudin, E., de Bellefon, M.-P. 
 
 Tennekes, M. and Chen, M. (2021) Design Space of Origin-Destination Data Visualization. Forthcoming in Eurographics
 Conference on Visualization (EuroVis) 2021
+
+INSEE press release of April 8, “Population présente sur le territoire avant et après le début du confinement : résultats provisoires”, https://www.insee.fr/fr/information/4477356
+
+INSEE press release of May 18, “Population présente sur le territoire avant et après le début du confinement : résultats consolidés”, https://www.insee.fr/fr/information/4493611
 
 Que peut faire l’Insee à partir des données de téléphonie mobile ? Mesures de population présente en temps de confinement et statistiques expérimentales, billet de blog, Insee
