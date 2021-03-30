@@ -67,10 +67,10 @@ list(
   tar_target(
     htmls_files,
     c(
-      'html/inflows_FR.html',
-      'html/inflows_EN.html',
-      'html/outflows_FR.html',
-      'html/outflows_EN.html'
+      'inflows_FR.html',
+      'inflows_EN.html',
+      'outflows_FR.html',
+      'outflows_EN.html'
     )
   ),
   tar_target(
@@ -98,7 +98,6 @@ list(
       save_tags(
         {
         tmap_mode('view');
-        library(leafsync);
         print(synctmaps, show = FALSE, full.height = TRUE) %>%
           htmlwidgets::appendContent(htmltools::HTML(infos))},
         htmls_files,

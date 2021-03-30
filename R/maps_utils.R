@@ -25,17 +25,17 @@ get_residents <- function(){
 }
 
 get_ODs <- function() {
-  data <- read.csv('data/data.csv')
+  data <- read.csv('data/MouvementsPopulation_confinement2020.csv')
   
   od_before = data %>%
     select(code_from = departementRes,
            code_to = departementPres,
-           flow = popPres_before)
+           flow = presentPop_avant_confinement)
   
   od_during = data %>%
     select(code_from = departementRes,
            code_to = departementPres,
-           flow = popPres_after)
+           flow = presentPop_pendant_confinement)
   
   return(list(od_before = od_before, od_during = od_during))
   
