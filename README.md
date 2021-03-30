@@ -1,5 +1,7 @@
 # Dataviz: Population movements at Spring 2020 lockdown in France
 
+[![maps](https://github.com/InseeFrLab/lockdown-maps-R/workflows/maps/badge.svg)](https://github.com/InseeFrLab/lockdown-maps-R/actions)
+
 [DataViz (EN)](https://inseefrlab.github.io/lockdown-maps-r/inflows_EN.html)
 [DataViz (FR)](https://inseefrlab.github.io/lockdown-maps-r/inflows_FR.html)
 
