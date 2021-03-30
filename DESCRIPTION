@@ -9,7 +9,8 @@ Authors@R:
       person(given = "Martijn",
              family = "Tennekes",
              role = "aut"
-             email = "martijn.tennekes@cbs.nl"),
+             email = "martijn.tennekes@cbs.nl",
+             comment = c(ORCID = "0000-0002-6506-9522")),
       person(given = "Romain",
              family = "Lesur",
              role = "ctb",
