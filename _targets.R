@@ -28,6 +28,7 @@ list(
   tar_target(langue, c("fr-FR", "en-US")),
   tar_target(inflows, c(TRUE, FALSE)),
   tar_target(vizLink, 'https://InseeFrLab.github.io/lockdown-maps-R/'),
+  tar_target(totals, get_residents()),
   tar_target(
     titles,
     c(
@@ -86,7 +87,7 @@ list(
     ),
     tar_target(tmaps,
                list(tmaps = build_tmap(
-                 ODsGeo, inflows, langue, titles
+                 ODsGeo, totals,  inflows, langue, titles
                )),
                pattern = map(cross(
                  ODsGeo, inflows, langue
