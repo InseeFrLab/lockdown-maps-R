@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+html/
+_targets/
+*.html
+*.pdf
