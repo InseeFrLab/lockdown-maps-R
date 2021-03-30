@@ -19,7 +19,7 @@ Authors@R:
              role = "cph"))
 Description: This repository contains the code to build the dataviz. It
     builds on (Martijn Repo).
-License: 
+License: MIT + file LICENSE
 URL: https://github.com/InseeFrLab/lockdown-maps-R
 Imports: 
     htmltools,
