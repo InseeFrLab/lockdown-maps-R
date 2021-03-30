@@ -19,7 +19,10 @@ Imports:
     htmltools,
     htmlwidgets,
     leafsync,
-    readxl
+    readxl,
+    sp,
+    rmarkdown,
+    xml2
 Remotes:
     mtennekes/odf
     r-spatial/leafsync
