@@ -24,12 +24,14 @@ Imports:
     htmltools,
     htmlwidgets,
     leafsync,
+    odf,
     readxl,
     rmarkdown,
     sf,
     sp,
     targets,
     tidyverse,
+    tmap,
     tmaptools,
     xml2
 Remotes:

@@ -28,6 +28,8 @@ ODsGeo <- lapply(ODs, FUN = function(od) get_ODsGeo(od, dm_centroid))
 langue <- c("fr-FR", "en-US")
 inflows <- c(TRUE,FALSE)
 
+dir.create('html')
+
 html_names <- function(inflows, langue){
   names <- data.frame(name = c(
     'html/inflows_FR.html',
