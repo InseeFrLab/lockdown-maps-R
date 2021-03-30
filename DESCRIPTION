@@ -13,7 +13,8 @@ Authors@R:
       person(given = "Romain",
              family = "Lesur",
              role = "ctb",
-             email = "romain.lesur@insee.fr"),
+             email = "romain.lesur@insee.fr",
+             comment = c(ORCID = "0000-0002-0721-5595")),
       person(family = "Institut National de la Statistique et des Études Économiques",
              role = "cph"))
 Description: This repository contains the code to build the dataviz. It
