@@ -21,6 +21,7 @@ round_num = function(x, round_to) round2(x / round_to) * round_to
 
 
 bake_donuts = function(x,
+                       totals = NULL,
 
   text = list(  legend_title = "Region",
                 legend_other = "Other region",
@@ -194,6 +195,23 @@ bake_donuts = function(x,
   x <- odf:::od_sum_stay(x, "flow")
   
   x$U$flow_res = round_num(x$U$flow_stay + x$U$flow_out, round_to)
+  
+  # replace totals by totals
+  if (!is.null(totals)) {
+    if (!all(c("code", "popRes") %in% names(totals))) stop("totals should have 'code' and 'popRes'")
+    
+    for (g in groups) {
+      totals = rbind(totals, tibble(code = g$code, popRes = sum(totals$popRes[totals$code %in% g$codes])))
+    }
+    
+    totals = totals %>% 
+      filter(code %in% x$U$code)
+    
+    tids = match(totals$code, x$U$code)
+    x$U$flow_res[tids] = totals$popRes 
+  }
+  
+  
   x$U$flow_out = round_num(x$U$flow_out, round_to)
   x$U$flow_in = round_num(x$U$flow_in, round_to)
   x$U$flow_stay = round_num(x$U$flow_stay, round_to)

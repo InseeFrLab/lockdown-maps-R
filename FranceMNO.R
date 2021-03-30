@@ -24,6 +24,9 @@ ODs <- get_ODs()
 # -- create od objects
 ODsGeo <- lapply(ODs, FUN = function(od) get_ODsGeo(od, dm_centroid))
 
+# -- get residents totals
+totals <- get_residents()
+
 # -- tmaps
 langue <- c("fr-FR", "en-US")
 inflows <- c(TRUE,FALSE)
@@ -73,16 +76,16 @@ title <- function(i, inflows, langue){
 tMaps <- lapply(langue, FUN = function(lang)
                 lapply(inflows, FUN = function(inflow)
                   lapply(1:2, FUN = function(i)
-                              build_tmap(ODsGeo[[i]], inflow, lang, title(i = i, inflows = inflow, langue = lang)))))
+                              build_tmap(ODsGeo[[i]], totals, inflow, lang, title(i = i, inflows = inflow, langue = lang)))))
 
 
 # -- Synchronized tmaps
 synctMaps <- lapply(1:length(langue), FUN = function(i_lang)
                 lapply(1:length(inflows), FUN = function(i_inflow)
-                  tmap_arrange(tMaps[[i_lang]][[i_inflow]])))
+                  tmap_arrange(tMaps[[i_lang]][[i_inflow]], ncol = 2)))
     
 HTMLInfos <- c(
-	"<div id='info' class='info legend leaflet-control' style='display:block;height:80px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+	"<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Les cercles représentent la population présente en nuitées, résidents habituels <br>
 		et résidents d'autres département en nuitées. La visualisation a été construite par CBS. <br>
@@ -92,7 +95,7 @@ HTMLInfos <- c(
 		</div>
 		</div>
 	</div>",
-	"<div id='info' class='info legend leaflet-control' style='display:block;height:80px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+	"<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Circles represent the population staying overnight, usual residents and residents from other <br>
 		département. The visualisation was build by CBS. The data were made available by INSEE.<br>
