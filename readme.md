@@ -19,7 +19,7 @@ _Residency département_ It is the _département_ of ''usual'' residency, whose 
 
 ## Method
 
-The method was described in  [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407) (French only). It amounts to running a linear regression for each couple département of residency x département of overnight stays (d,r) to smooth the three adjusted time series in a single average estimate of population before and after lockdown. This is done because the three series may disagree, and daily data are not sufficiently robust to change in mobile phone use or punctual absence of data for some regions.
+The method was described in  [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407) (French only). It amounts to running a linear regression for each couple _département_ of residency cross _département_ of overnight stays `(d,r)` to smooth the three adjusted time series in a single average estimate of population before and after lockdown. This is done because the three series may disagree, and daily data are not sufficiently robust to change in mobile phone use or punctual absence of data for some regions.
 
 ## Data
 
