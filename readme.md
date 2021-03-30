@@ -15,7 +15,7 @@ Population movements are defined by the number of persons spending the night in 
 
 _Overnight Stay département_: For each MNO, a mobile phone is considered as staying overnight if it is stable geographically over a significant period between midnight and 6a.m.. Such counts - provided by usual place of residency - are combined and adjusted with Insee population counts to form three similar time series, one per each MNO.
 
-_Residency département_ It is the département of ''usual'' residency, whose definition may vary from one MNO to the other.
+_Residency département_ It is the _département_ of ''usual'' residency, whose definition may vary from one MNO to the other.
 
 ## Method
 
