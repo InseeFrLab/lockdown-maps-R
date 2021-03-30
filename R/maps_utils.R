@@ -55,7 +55,7 @@ map_parameters <- function(langue = 'en-US') {
   # specific departments (in this example Paris) for which specific colors are used:
   if (langue == 'fr-FR') {
     highlight = c("Paris et petite couronne",
-                  "Alpes (Savoie, Haute-Savoie, Hautes-Alpes)")
+                  "Alpes (05, 73, 74)")
     groups = list(
       list(
         codes = c("75", "92", "94", "93"),
@@ -69,7 +69,7 @@ map_parameters <- function(langue = 'en-US') {
       list(
         codes = c("05", "73", "74"),
         longlat = c(6.3927, 45.6755),
-        name = "Alpes (Savoie, Haute-Savoie, Hautes-Alpes)",
+        name = "Alpes (05, 73, 74)",
         code = "9999",
         donut = TRUE,
         inflow = TRUE,
@@ -152,6 +152,80 @@ map_parameters <- function(langue = 'en-US') {
     pal = pal
   )
   
+}
+html_names <- function(inflows, langue){
+  names <- data.frame(name = c(
+    'inflows_FR.html',
+    'inflows_EN.html',
+    'outflows_FR.html',
+    'outflows_EN.html'
+  ), 
+  name_link_langue = c(
+    '[To English Version]',    
+    '[vers Version Française]',
+    '[To English Version]',    
+    '[vers Version Française]'
+  ),
+  name_link_flows = c(
+    '[Représentation en départs]',
+    'To Outflows',
+    '[Représentation en arrivées]',
+    'To Inflows'
+  ),
+  inflow = rep(c(TRUE,FALSE), each = 2),
+  lang = rep(c("fr-FR", "en-US"), 2))
+  names[names$inflow==inflows & names$lang == langue, c("name","name_link_langue","name_link_flows")]
+}
+
+title <- function(i, inflows, langue){
+  titles <- data.frame(title = c(
+    'Présence suivant la résidence, hors confinement (arrivées)',
+    "Inflows before the 1rst lockdown",
+    "Présence suivant la résidence, hors confinement (départs)",
+    "Outflows before the 1rst lockdown",
+    "Pendant le confinement",
+    "Inflows after the 1rst lockdown",
+    "Pendant le confinement",
+    "Outflows after the 1rst lockdown"
+  ), before = rep(c(1,2), each = 4), 
+  inflow = rep(rep(c(TRUE,FALSE), each = 2),2),
+  lang = rep(c("fr-FR", "en-US"), 4))
+  titles[titles$before == i & titles$inflow==inflows & titles$lang == langue, "title"]
+}
+
+
+HTMLInfos <- function(vizLink, inflows, langue){
+  Infos <- c(
+  "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+		<div style='margin-top:5px;font-size:75%'>
+		Les cercles représentent le total de la population passant la nuit dans le département, en <br>
+		distinguant résidents habituels et résidents d'autres département de passage en nuitée. <br>
+		XXXLINKLINEXX
+	   La visualisation a été construite par CBS.  Ces données, retraitées par l'Insee, combinent des <br> 
+		comptages anonymes de trois opérateurs de téléphonie mobiles <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
+		</div>
+		</div>
+	</div>",
+  "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+		<div style='margin-top:5px;font-size:75%'>
+		Circles represent the population staying overnight: usual residents and residents from other <br>
+		département. The visualisation was build by CBS. The data were made available by INSEE.<br>
+		XXXLINKLINEXX
+	 They were statistically adjusted and combined from anonymous counts provided <br> 
+		 by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
+		</div>
+		</div>
+	</div>")
+
+  Infos <- lapply(inflows, FUN = function(inflow)
+    lapply(1:2, FUN = function(i_lang)
+      gsub('XXXLINKLINEXX',
+         sprintf("<a href='%s%s'>%s</a>  <a href=' %s%s '>%s</a><br>", 
+                 vizLink,html_names(!inflow, langue[i_lang])$name,html_names(inflow, langue[i_lang])$name_link_flows,
+                 vizLink,html_names(inflow, langue[(i_lang==1)*2 + (i_lang==2)*1])$name,html_names(inflow, langue[i_lang])$name_link_langue), Infos[i_lang])
+  ))
+  
+  Infos
 }
 
 
