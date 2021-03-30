@@ -20,7 +20,7 @@ get_residents <- function(){
   httr::GET("https://www.insee.fr/fr/statistiques/fichier/2012692/TCRD_021.xls", httr::write_disk(tf <- tempfile(fileext = ".xls")))
   res <- readxl::read_excel(tf, skip = 4, n_max = 96, col_names = c('code','name','pop','part_fem','part_hom','part_age1','part_age2','part_age3','part_age4'))
   res$code[res$code %in% c('2A','2B')] <- '2AB'
-  res <- res %>% group_by(code) %>% summarise(popRes = sum(pop))
+  res <- res %>% group_by(code) %>% summarise(popRes = round(sum(pop),-3))
   return(res)
 }
 
