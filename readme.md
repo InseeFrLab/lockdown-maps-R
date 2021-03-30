@@ -55,7 +55,7 @@ Les mouvements de population sont définis ici à partir du nombre de personnes 
 
 _Département de nuitée_ : Il s'agit du département de présence en nuitée ; un téléphone mobile est considéré en nuitée lorsqu’il apparaît stable géographiquement sur une période de temps significative entre minuit et 6h du matin. Les indicateurs fournis par trois opérateurs de comptage de téléphones mobile actifs sont combinés et retraités par l'Insee.
 
-_Département de résidence:_ Il s'agit du département de résidence ``usuelle'', dont la définition peut varier d'un opérateur à l'autre.
+_Département de résidence_ : Il s'agit du département de résidence "usuelle", dont la définition peut varier d'un opérateur à l'autre.
 
 ## Méthode et Source 
 
