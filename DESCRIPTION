@@ -8,7 +8,7 @@ Authors@R:
              email = "milena.suarez-castillo@insee.fr"),
       person(given = "Martijn",
              family = "Tennekes",
-             role = c("aut", "cre"),
+             role = "aut"
              email = "martijn.tennekes@cbs.nl"),
       person(given = "Romain",
              family = "Lesur",
