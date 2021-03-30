@@ -6,7 +6,7 @@ On the 17th of march 2020, France entered its first strict national lockdown in 
 
 These estimates were produced thanks to the partnerships with three Mobile Network Operators, which provided anonymous counts of nightly presence by usual residency. They were statistically adjusted and combined by INSEE [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407).
 
-One year after, a richer (though a bit more fragile) [dataset](LINK) was released by Insee based on the same method so as to allow visualization of aggregate overnight stays by residency - comparing the period before and after the lockdown. This dataset feeds the visualization built by CBS (the Dutch National Statistical Institute) and used for instance [here](http://www.mtennekes.nl/viz/commutingNL/v8/) on commuting data. This work was presented at the online seminar [__Big Data for timely statistics__](https://www.cbs.nl/en-gb/onze-diensten/unique-collaboration-for-big-data-research/big-data-matters-3-the-need-for-timely-statistics) on the 1rst of April 2021.
+One year after, a richer (though a bit more fragile) [dataset](LINK) was released by Insee based on the same method so as to allow visualization of aggregate overnight stays by residency - comparing the period before and after the lockdown. This dataset feeds the visualization tool built by CBS (the Dutch National Statistical Institute) and used for instance [here](http://www.mtennekes.nl/viz/commutingNL/v8/) on commuting data. This work was presented at the online seminar [__Big Data for timely statistics__](https://www.cbs.nl/en-gb/onze-diensten/unique-collaboration-for-big-data-research/big-data-matters-3-the-need-for-timely-statistics) on the 1st of April 2021.
 
 
 ## Some definitions
