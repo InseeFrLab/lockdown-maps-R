@@ -1,6 +1,6 @@
-if (!requireNamespace("odf")) remotes::install_github("mtennekes/odf")
-remotes::install_github("r-spatial/leafsync") # requires the github version of leafsync
-remotes::install_github("mtennekes/tmap") # latest github version of tmap required to improve the popups
+# if (!requireNamespace("odf")) remotes::install_github("mtennekes/odf")
+# remotes::install_github("r-spatial/leafsync") # requires the github version of leafsync
+# remotes::install_github("mtennekes/tmap") # latest github version of tmap required to improve the popups
 
 library(odf) 
 library(tidyverse)
@@ -28,16 +28,28 @@ ODsGeo <- lapply(ODs, FUN = function(od) get_ODsGeo(od, dm_centroid))
 langue <- c("fr-FR", "en-US")
 inflows <- c(TRUE,FALSE)
 
-html_name <- function(inflows, langue){
+html_names <- function(inflows, langue){
   names <- data.frame(name = c(
     'html/inflows_FR.html',
     'html/inflows_EN.html',
     'html/outflows_FR.html',
     'html/outflows_EN.html'
   ), 
+  name_link_langue = c(
+    'To English Version',    
+    'vers Version Française',
+    'To English Version',    
+    'vers Version Française'
+  ),
+  name_link_flows = c(
+    'vers Flux Sortants',
+    'To Outflows',
+    'vers Flux Entrants',
+    'To Inflows'
+    ),
   inflow = rep(c(TRUE,FALSE), each = 2),
   lang = rep(c("fr-FR", "en-US"), 2))
-  names[names$inflow==inflows & names$lang == langue, "name"]
+  names[names$inflow==inflows & names$lang == langue, c("name","name_link_langue","name_link_flows")]
 }
 
 title <- function(i, inflows, langue){
@@ -72,6 +84,7 @@ HTMLInfos <- c(
 		<div style='margin-top:5px;font-size:75%'>
 		Les cercles représentent la population présente en nuitées, résidents habituels <br>
 		et résidents d'autres département en nuitées. La visualisation a été construite par CBS. <br>
+		XXXLINKLINEXX
 	   Ces données, retraitées par l'Insee, combinent des comptages anonymes de trois <br> 
 		opérateurs de téléphonie mobiles (Bouygues telecom, SFR, Orange) <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
@@ -79,26 +92,36 @@ HTMLInfos <- c(
 	</div>",
 	"<div id='info' class='info legend leaflet-control' style='display:block;height:80px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
-		Circles represent the population staying overnight, usual residents and residents <br>
-		from other département. The visualisation was build by CBS. The data were made <br>
-		available by INSEE. They were statistically adjusted and combined from anonymous <br> 
+		Circles represent the population staying overnight, usual residents and residents from other <br>
+		département. The visualisation was build by CBS. The data were made available by INSEE.<br>
+		XXXLINKLINEXX
+	 They were statistically adjusted and combined from anonymous <br> 
 		 counts provided by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
 		</div>
 	</div>")
+
+HTMLInfos <- lapply(1:2, FUN = function(i_lang)
+       lapply(inflows, FUN = function(inflow)
+         gsub('XXXLINKLINEXX',
+                      sprintf("<a href='%s%s'>%s</a>  <a href=' %s%s '>%s</a><br>", 
+                              vizLink,html_names(!inflow, langue[i_lang])$name,html_names(inflow, langue[i_lang])$name_link_flows,
+                              vizLink,html_names(!inflow, langue[(i_lang+1)%/%2])$name,html_names(inflow, langue[i_lang])$name_link_langue), HTMLInfos[i_lang])
+              ))
+
 
 # --- With infos.
 tmap_mode('view')
 synctMapsInfo <- lapply(1:length(langue), FUN = function(i_lang)
                     lapply(1:length(inflows), FUN = function(i_inflow)
                               print(synctMaps[[i_lang]][[i_inflow]], show = FALSE, full.height = TRUE) %>%  
-    htmlwidgets::appendContent(htmltools::HTML(HTMLInfos[i_lang]))))
+    htmlwidgets::appendContent(htmltools::HTML(HTMLInfos[[i_lang]][[i_inflow]]))))
   
 
 # --- save htmls
 lapply(1:length(langue), FUN = function(i_lang)
   lapply(1:length(inflows), FUN = function(i_inflow)
-    save_tags(synctMapsInfo[[i_lang]][[i_inflow]], html_name(inflows = (i_inflow == 1),langue[i_lang]), lang = langue[i_lang])
+    save_tags(synctMapsInfo[[i_lang]][[i_inflow]], html_names(inflows = (i_inflow == 1),langue[i_lang])$name, lang = langue[i_lang])
   )
 )
     

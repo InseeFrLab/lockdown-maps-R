@@ -27,6 +27,7 @@ tar_option_set(
 list(
   tar_target(langue, c("fr-FR", "en-US")),
   tar_target(inflows, c(TRUE, FALSE)),
+  tar_target(vizLink, 'https://InseeFrLab.github.io/lockdown-maps-R/'),
   tar_target(
     titles,
     c(
@@ -95,7 +96,9 @@ list(
     tar_target(
       savehtmls,
       save_tags(
-        {tmap_mode('view');
+        {
+        tmap_mode('view');
+        library(leafsync);
         print(synctmaps, show = FALSE, full.height = TRUE) %>%
           htmlwidgets::appendContent(htmltools::HTML(infos))},
         htmls_files,
