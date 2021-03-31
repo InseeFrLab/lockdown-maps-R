@@ -28,7 +28,7 @@ list(
   tar_target(langue, c("fr-FR", "en-US")),
   tar_target(inflows, c(TRUE, FALSE)),
   tar_target(before_after, 1:2),
-  tar_target(vizLink, 'https://InseeFrLab.github.io/lockdown-maps-R/'),
+  tar_target(vizLink, 'https://inseefrlab.github.io/lockdown-maps-R/'),
   tar_target(totals, get_residents()),
   tar_target(infos, unlist(HTMLInfos(vizLink, inflows, langue))),
   tar_target(htmls_files, html_names(inflows, langue)$name, pattern = cross(inflows,langue)),
