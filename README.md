@@ -3,7 +3,7 @@
 [![maps](https://github.com/InseeFrLab/lockdown-maps-R/workflows/maps/badge.svg)](https://github.com/InseeFrLab/lockdown-maps-R/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-[DataViz (:en:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_EN.html)
+[DataViz (:gb:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_EN.html)
 [DataViz (:fr:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_FR.html)
 
 On the 17th of March 2020, France entered its first strict national lockdown in an effort to curb the covid-19 pandemic. Announced a few days before, the population had some leverage to choose where to spend the period. At this time, INSEE, the French national institutes, estimated that Paris lost about 450,000 metropolitan residents compared to 2020 first months, half of which were usual Paris residents. These population surpluses were broadly distributed across France. As a general stylized fact (Paris set aside), the population was closer to its usual residence during the lockdown: motives for overnight stays in other regions such as tourism, family visits or business trips were strongly restricted. For instance, the winter season ended abruptly in the Alps with the closing of ski resorts: seasonal workers and tourists left. These estimates were produced thanks to the partnerships with three Mobile Network Operators, which provided anonymous counts of nightly presence by usual residency. They were statistically adjusted and combined by INSEE [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407).
