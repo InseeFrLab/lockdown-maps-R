@@ -21,18 +21,23 @@ Description: This repository contains the code to build the dataviz. It
 License: 
 URL: https://github.com/InseeFrLab/lockdown-maps-R
 Imports: 
+    colorspace,
     htmltools,
     htmlwidgets,
+    httr,
     leafsync,
     odf,
+    pals,
     readxl,
     rmarkdown,
     sf,
     sp,
     targets,
     tidyverse,
+    tools,
     tmap,
     tmaptools,
+    units,
     xml2
 Remotes:
     mtennekes/odf,
