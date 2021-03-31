@@ -104,7 +104,7 @@ La méthode décrite dans Galiana et al. (2020) a été étendue à tous les cou
 
 Téléchargement: 
 [Données agrégées publiées en mai 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates
-[Données de la dataviz (données expérimentales), publiées en avril 2021](https://previsualisation.insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
+[Données de la dataviz (données expérimentales), publiées en avril 2021](https://insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
 
 Voir également:  
 [Déplacements de population lors du confinement au printemps 2020 - Données expérimentales - Bases de données](https://insee.fr/fr/statistiques/5350073)
