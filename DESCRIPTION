@@ -17,7 +17,11 @@ Authors@R:
              email = "romain.lesur@insee.fr",
              comment = c(ORCID = "0000-0002-0721-5595")),
       person(family = "Institut National de la Statistique et des Études Économiques",
-             role = "cph"))
+             role = "cph",
+             comment = "https://insee.fr"),
+      person(family = "Statistics Netherlands",
+             role = "cph",
+             comment = "https://www.cbs.nl/en-gb/"))
 Description: This repository contains the code to build the dataviz. It
     builds on (Martijn Repo).
 License: MIT + file LICENSE
