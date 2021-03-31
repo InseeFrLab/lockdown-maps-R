@@ -179,14 +179,14 @@ html_names <- function(inflows, langue){
 
 title <- function(i, inflows, langue){
   titles <- data.frame(title = c(
-    'Présence suivant la résidence, hors confinement (arrivées)',
+    'Présence selon la résidence, hors confinement (arrivées)',
     "Inflows before the 1rst lockdown",
-    "Présence suivant la résidence, hors confinement (départs)",
-    "Outflows before the 1rst lockdown",
-    "Pendant le confinement",
-    "Inflows after the 1rst lockdown",
-    "Pendant le confinement",
-    "Outflows after the 1rst lockdown"
+    "Présence selon la résidence, hors confinement (départs)",
+    "Outflows selon the 1rst lockdown",
+    ".. et pendant le confinement (arrivées)",
+    ".. and after the 1rst lockdown",
+    ".. et pendant le confinement (départs)",
+    ".. and after the 1rst lockdown"
   ), before = rep(c(1,2), each = 4), 
   inflow = rep(rep(c(TRUE,FALSE), each = 2),2),
   lang = rep(c("fr-FR", "en-US"), 4))
