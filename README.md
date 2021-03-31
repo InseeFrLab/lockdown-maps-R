@@ -1,12 +1,12 @@
-# Dataviz: Population movements at Spring 2020 lockdown in France
+# Dataviz: Population Movements at Spring 2020 Lockdown in France
 
 [![maps](https://github.com/InseeFrLab/lockdown-maps-R/workflows/maps/badge.svg)](https://github.com/InseeFrLab/lockdown-maps-R/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-[DataViz (EN)](https://inseefrlab.github.io/lockdown-maps-r/inflows_EN.html)
-[DataViz (FR)](https://inseefrlab.github.io/lockdown-maps-r/inflows_FR.html)
+[DataViz (:en:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_EN.html)
+[DataViz (:fr:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_FR.html)
 
-On the 17th of march 2020, France entered its first strict national lockdown in an effort to curb the covid-19 pandemic. Announced a few days before, the population had some leverage to choose where to spend the period. At this time, INSEE, the French national institutes, estimated that Paris lost about 450,000 metropolitan residents compared to 2020 first months, half of which were usual Paris residents. These population surpluses were broadly distributed across France. As a general stylized fact (Paris set aside), the population was closer to its usual residence during the lockdown: motives for overnight stays in other regions such as tourism, family visits or business trips were strongly restricted. For instance, the winter season ended abruptly in the Alps with the closing of ski resorts: seasonal workers and tourists left. These estimates were produced thanks to the partnerships with three Mobile Network Operators, which provided anonymous counts of nightly presence by usual residency. They were statistically adjusted and combined by INSEE [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407).
+On the 17th of March 2020, France entered its first strict national lockdown in an effort to curb the covid-19 pandemic. Announced a few days before, the population had some leverage to choose where to spend the period. At this time, INSEE, the French national institutes, estimated that Paris lost about 450,000 metropolitan residents compared to 2020 first months, half of which were usual Paris residents. These population surpluses were broadly distributed across France. As a general stylized fact (Paris set aside), the population was closer to its usual residence during the lockdown: motives for overnight stays in other regions such as tourism, family visits or business trips were strongly restricted. For instance, the winter season ended abruptly in the Alps with the closing of ski resorts: seasonal workers and tourists left. These estimates were produced thanks to the partnerships with three Mobile Network Operators, which provided anonymous counts of nightly presence by usual residency. They were statistically adjusted and combined by INSEE [Galiana et al. (2020)](https://www.insee.fr/fr/statistiques/4635407).
 
 One year after, a richer (though a bit more fragile) [dataset](LINK) was released by Insee based on the same method so as to allow visualization of aggregate overnight stays by residency - comparing the period before and after the lockdown. This dataset feeds the visualization tool built by CBS (the Dutch National Statistical Institute) and used for instance [here](http://www.mtennekes.nl/viz/commutingNL/v8/) on commuting data. This work was presented at the online seminar [__Big Data for timely statistics__](https://www.cbs.nl/en-gb/onze-diensten/unique-collaboration-for-big-data-research/big-data-matters-3-the-need-for-timely-statistics) on the 1st of April 2021.
 
@@ -32,6 +32,7 @@ The method to construct population estimates before and during lockdown was desc
 [Dataviz Data, as published in April 2021](https://insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
 
 ### Cautionary note
+
 These two data sets are considered by Insee as **experimental**: the new data sources that constitute aggregated mobile phone data suffer a number of biases which were probably only partially adjusted. In addition, the second data set which feeds the dataviz is disseminated by rounded only at 100, to allow for re-use and aggregation such as these allowing to deploy the [visualisation](LINK). It is however recommended to interpret these numbers and aggregates made from them after rounding at 1,000 (as it is done for the visualisation). In addition, as not all couples of presence/residency `(d,r)` can be estimated (intermittent flows, not enough observations) and because there are irreductible rounding errors, the aggregates which were first published and estimated at a more aggregated level should stay the reference.
 
 ## Visualisation
@@ -56,6 +57,10 @@ targets::tar_make()
 ```
 
 
+
+## How to cite this work?
+
+Suarez Castillo, M. and M. Tennekes, "Population Movements at Spring 2020 Lockdown in France - Interactive Data Visualizations", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## References
 
@@ -111,6 +116,10 @@ L’Insee considère ces résultats comme **expérimentaux**. Au même titre que
 ## Visualisation 
 
 CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de visualisation. Lien en anglais uniquement :  [More insight into mobility with the doughnut map (cbs.nl)](https://www.cbs.nl/en-gb/over-ons/innovation/project/more-insight-into-mobility-with-the-doughnut-map)  [NL Job Commuting Viz](https://dashboards.cbs.nl/v1/commutingNL/) 
+
+## Comment citer ce travail ?
+
+Suarez Castillo, M. et M. Tennekes, "Mouvements de population autour du confinement de mars 2020 - Data visualisations interactives", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## Références
 

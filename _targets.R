@@ -54,8 +54,8 @@ list(
       savehtmls,
       save_tags(
         {
-        tmap_mode('view');
-        library(leafsync);
+        tmap_mode('view')
+        if (!dir.exists("html")) dir.create("html")
         print(synctmaps, show = FALSE, full.height = TRUE) %>%
           htmlwidgets::appendContent(htmltools::HTML(infos))},
         htmls_files,
