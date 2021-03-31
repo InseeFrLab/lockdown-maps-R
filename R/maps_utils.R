@@ -204,7 +204,6 @@ HTMLInfos <- function(vizLink, inflows, langue){
 	   La visualisation a été construite par CBS.  Ces données, retraitées par l'Insee, combinent des <br> 
 		comptages anonymes de trois opérateurs de téléphonie mobiles <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
-		</div>
 	</div>",
   "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
@@ -213,7 +212,6 @@ HTMLInfos <- function(vizLink, inflows, langue){
 		XXXLINKLINEXX
 	 They were statistically adjusted and combined from anonymous counts provided <br> 
 		 by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
-		</div>
 		</div>
 	</div>")
 

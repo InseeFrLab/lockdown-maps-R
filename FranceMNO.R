@@ -93,7 +93,6 @@ HTMLInfos <- c(
 	   Ces données, retraitées par l'Insee, combinent des comptages anonymes de trois <br> 
 		opérateurs de téléphonie mobiles (Bouygues telecom, SFR, Orange) <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
-		</div>
 	</div>",
 	"<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
@@ -102,7 +101,6 @@ HTMLInfos <- c(
 		XXXLINKLINEXX
 	 They were statistically adjusted and combined from anonymous <br> 
 		 counts provided by three MNOs (Bouygues telecom, SFR, Orange), see <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
-		</div>
 		</div>
 	</div>")
 
