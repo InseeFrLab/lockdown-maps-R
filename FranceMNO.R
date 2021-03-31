@@ -82,7 +82,7 @@ tMaps <- lapply(langue, FUN = function(lang)
 # -- Synchronized tmaps
 synctMaps <- lapply(1:length(langue), FUN = function(i_lang)
                 lapply(1:length(inflows), FUN = function(i_inflow)
-                  tmap_arrange(tMaps[[i_lang]][[i_inflow]], ncol = 2)))
+                  tmap_arrange(tMaps[[i_lang]][[i_inflow]], ncol = 2, sync = TRUE)))
     
 HTMLInfos <- c(
 	"<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >

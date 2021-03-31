@@ -333,7 +333,7 @@ sync_tmaps <- function(list_tmaps) {
     lapply(
       c(1:4),
       FUN = function(i)
-        tmap_arrange(list_tmaps[[i]], list_tmaps[[i + 4]], ncol = 2)
+        tmap_arrange(list_tmaps[[i]], list_tmaps[[i + 4]], ncol = 2, sync = TRUE)
     )
   return(synctmaps)
 }
