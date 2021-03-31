@@ -87,7 +87,7 @@ CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de vi
 
 ## Comment citer ce travail ?
 
-Suarez-Castillo, M. et M. Tennekes, "Mouvements de population autour du confinement de mars 2020", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
+Suarez-Castillo, M. et M. Tennekes, "Mouvements de population autour du confinement de mars 2020 - Data visualisations interactives", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## Références
 
