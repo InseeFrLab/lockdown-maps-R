@@ -1,17 +1,16 @@
 on:
   push:
     branches:
-      - main
       - master
   pull_request:
     branches:
-      - main
       - master
 
 name: maps
 
 jobs:
   maps:
+    name: Create datavisualizations
     runs-on:  macOS-latest
 
     env:
@@ -66,3 +65,22 @@ jobs:
         with:
           name: maps
           path: html
+  
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: maps
+    if: github.ref == 'refs/heads/master'
+    runs-on:  macOS-latest
+    steps:
+      - name: Download HTML files created by job maps
+        uses: actions/download-artifact@v2
+        with:
+          name: maps
+
+      - name: Push to gh-pages branch
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: maps
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
