@@ -1,4 +1,4 @@
-# Dataviz: Population movements at Spring 2020 lockdown in France
+# Dataviz: Population Movements at Spring 2020 Lockdown in France
 
 [![maps](https://github.com/InseeFrLab/lockdown-maps-R/workflows/maps/badge.svg)](https://github.com/InseeFrLab/lockdown-maps-R/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -35,6 +35,10 @@ These two data sets are considered by Insee as **experimental**: the new data so
 ## Visualisation
 
 CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualisation tool.  @mtennekes
+
+## How to cite this work?
+
+Suarez-Castillo, M. and M. Tennekes, "Population Movements at Spring 2020 Lockdown in France", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## References
 
@@ -81,6 +85,9 @@ L’Insee considère ces résultats comme **expérimentaux**. Au même titre que
 
 CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de visualisation. 
 
+## Comment citer ce travail ?
+
+Suarez-Castillo, M., et M. Tennekes, "Mouvements de population autour du confinement de mars 2020", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## Références
 
