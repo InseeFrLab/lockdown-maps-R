@@ -41,18 +41,18 @@ CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualizati
 
 It was also applied to job communting in the NetherLands [NL Job Commuting Viz](https://dashboards.cbs.nl/v1/commutingNL/) 
 
+To build the visualization from R:  
+First, make sure all the dependencies have been installed, for instance with the [renv](https://rstudio.github.io/renv/)  package which reads the `renv.lock` file:
 
-
-
-To build the visualization from R: 
-First make sure all the dependencies have been installed, for instance with the package `renv` which read `renv.lock`:
-```
+```r
+# install.packages("renv")
 renv::init()
 renv::restore()
 ```
-The pipeline can be run with the `targets`: it builds the htmls files with the `_targets.R` workflow.
 
-```
+The pipeline can be run with the rOpenSci's [targets](https://docs.ropensci.org/targets/) package: it builds the HTML files with the `_targets.R` workflow:
+
+```r
 targets::tar_make()
 ```
 
