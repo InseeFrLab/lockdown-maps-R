@@ -30,6 +30,7 @@ The method to construct population estimates before and during lockdown was desc
 [Dataviz Data, as published in April 2021](LINK): allows re-use by disseminating flows
 
 ### Cautionary note
+
 These two data sets are considered by Insee as **experimental**: the new data sources that constitute aggregated mobile phone data suffer a number of biases which were probably only partially adjusted. In addition, the second data set which feeds the dataviz is disseminated by rounded only at 100, to allow for re-use and aggregation such as these allowing to deploy the [visualisation](LINK). It is however recommended to interpret these numbers and aggregates made from them after rounding at 1,000 (as it is done for the visualisation). In addition, as not all couples of presence/residency `(d,r)` can be estimated (intermittent flows, not enough observations) and because there are irreductible rounding errors, the aggregates which were first published and estimated at a more aggregated level should stay the reference.
 
 ## Visualisation
@@ -38,7 +39,7 @@ CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualisati
 
 ## How to cite this work?
 
-Suarez-Castillo, M. and M. Tennekes, "Population Movements at Spring 2020 Lockdown in France - Interactive Data Visualizations", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
+Suarez Castillo, M. and M. Tennekes, "Population Movements at Spring 2020 Lockdown in France - Interactive Data Visualizations", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## References
 
@@ -87,7 +88,7 @@ CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de vi
 
 ## Comment citer ce travail ?
 
-Suarez-Castillo, M. et M. Tennekes, "Mouvements de population autour du confinement de mars 2020 - Data visualisations interactives", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
+Suarez Castillo, M. et M. Tennekes, "Mouvements de population autour du confinement de mars 2020 - Data visualisations interactives", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## Références
 

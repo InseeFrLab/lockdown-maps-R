@@ -1,5 +1,6 @@
 Package: lockdown-maps-R
-Title: Population Movements at Spring 2020 Lockdown in France
+Title: Population Movements at Spring 2020 Lockdown in France -
+    Interactive Data Visualizations
 Version: 0.0.0.9000
 Date: 2021-04-01
 Authors@R: 
