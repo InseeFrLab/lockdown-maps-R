@@ -39,7 +39,7 @@ These two data sets are considered by Insee as **experimental**: the new data so
 
 CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualization tool.  [More insight into mobility with the doughnut map (cbs.nl)](https://www.cbs.nl/en-gb/over-ons/innovation/project/more-insight-into-mobility-with-the-doughnut-map)  
 
-It was also applied to job communting in the NetherLands [NL Job Commuting Viz](https://dashboards.cbs.nl/v1/commutingNL/) 
+It was also applied to job commuting in the NetherLands [NL Job Commuting Viz](https://dashboards.cbs.nl/v1/commutingNL/) 
 
 To build the visualization from R:  
 First, make sure all the dependencies have been installed, for instance with the [renv](https://rstudio.github.io/renv/)  package which reads the `renv.lock` file:
