@@ -38,7 +38,7 @@ CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualisati
 
 ## How to cite this work?
 
-Suarez-Castillo, M. and M. Tennekes, "Population Movements at Spring 2020 Lockdown in France", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
+Suarez-Castillo, M. and M. Tennekes, "Population Movements at Spring 2020 Lockdown in France - Interactive Data Visualizations", Insee & CBS, 2021, https://github.com/InseeFrLab/lockdown-maps-R
 
 ## References
 
