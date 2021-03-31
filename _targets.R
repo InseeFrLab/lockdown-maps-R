@@ -61,7 +61,8 @@ list(
         htmls_files,
         htmls_langue
       ),
-      pattern = map(synctmaps, infos, htmls_files, htmls_langue)
+      pattern = map(synctmaps, infos, htmls_files, htmls_langue),
+      format = "file"
     )
   )
   
