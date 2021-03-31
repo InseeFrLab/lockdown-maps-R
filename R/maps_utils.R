@@ -218,9 +218,9 @@ HTMLInfos <- function(vizLink, inflows, langue){
   Infos <- lapply(inflows, FUN = function(inflow)
     lapply(1:2, FUN = function(i_lang)
       gsub('XXXLINKLINEXX',
-         sprintf("<a href='%s%s'>%s</a>  <a href=' %s%s '>%s</a><br>", 
-                 vizLink,html_names(!inflow, langue[i_lang])$name,html_names(inflow, langue[i_lang])$name_link_flows,
-                 vizLink,html_names(inflow, langue[(i_lang==1)*2 + (i_lang==2)*1])$name,html_names(inflow, langue[i_lang])$name_link_langue), Infos[i_lang])
+         sprintf("<a href='%s%s'>%s</a>  <a href='%s%s'>%s</a><br>", 
+                 vizLink, gsub('^html/','',html_names(!inflow, langue[i_lang])$name) , html_names(inflow, langue[i_lang])$name_link_flows,
+                 vizLink, gsub('^html/','',html_names(inflow, langue[(i_lang==1)*2 + (i_lang==2)*1])$name), html_names(inflow, langue[i_lang])$name_link_langue), Infos[i_lang])
   ))
   
   Infos
