@@ -196,7 +196,7 @@ title <- function(i, inflows, langue){
 
 HTMLInfos <- function(vizLink, inflows, langue){
   Infos <- c(
-  "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+  "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 15px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Les cercles représentent le total de la population passant la nuit dans le département, en <br>
 		distinguant résidents habituels et résidents d'autres département de passage en nuitée. <br>
@@ -205,7 +205,7 @@ HTMLInfos <- function(vizLink, inflows, langue){
 		comptages anonymes de trois opérateurs de téléphonie mobiles <a href='https://www.insee.fr/fr/statistiques/4635407'>Galiana et al (2020).</a><br>
 		</div>
 	</div>",
-  "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 10px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
+  "<div id='info' class='info legend leaflet-control' style='display:block;height:95px;position: absolute; bottom: 15px; right: 10px;background-color: rgba(255, 255, 255, 0.8);' >
 		<div style='margin-top:5px;font-size:75%'>
 		Circles represent the population staying overnight: usual residents and residents from other <br>
 		département. The visualisation was build by CBS. The data were made available by INSEE.<br>
