@@ -65,4 +65,4 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: maps
-          path: '*.html'
+          path: html

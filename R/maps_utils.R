@@ -155,10 +155,10 @@ map_parameters <- function(langue = 'en-US') {
 }
 html_names <- function(inflows, langue){
   names <- data.frame(name = c(
-    'inflows_FR.html',
-    'inflows_EN.html',
-    'outflows_FR.html',
-    'outflows_EN.html'
+    'html/inflows_FR.html',
+    'html/inflows_EN.html',
+    'html/outflows_FR.html',
+    'html/outflows_EN.html'
   ), 
   name_link_langue = c(
     '[To English Version]',    
