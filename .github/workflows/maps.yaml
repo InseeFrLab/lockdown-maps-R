@@ -76,11 +76,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: maps
+          
+      - name: Move files to build directory
+        run: |
+          mkdir build
+          mv *.html build
 
       - name: Push to gh-pages branch
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
-          build_dir: html
+          build_dir: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
