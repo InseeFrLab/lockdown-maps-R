@@ -1,5 +1,5 @@
 Package: lockdown-maps-R
-Title: Dataviz before/after first lockdown (march 2020)
+Title: Dataviz before/after first lockdown (March 2020)
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Milena",
@@ -8,17 +8,19 @@ Authors@R:
              email = "milena.suarez-castillo@insee.fr"),
       person(given = "Martijn",
              family = "Tennekes",
-             role = c("aut", "cre"),
-             email = "martijn.tennekes@cbs.nl"),
+             role = "aut"
+             email = "martijn.tennekes@cbs.nl",
+             comment = c(ORCID = "0000-0002-6506-9522")),
       person(given = "Romain",
              family = "Lesur",
              role = "ctb",
-             email = "romain.lesur@insee.fr"),
+             email = "romain.lesur@insee.fr",
+             comment = c(ORCID = "0000-0002-0721-5595")),
       person(family = "Institut National de la Statistique et des Études Économiques",
              role = "cph"))
 Description: This repository contains the code to build the dataviz. It
     builds on (Martijn Repo).
-License: 
+License: MIT + file LICENSE
 URL: https://github.com/InseeFrLab/lockdown-maps-R
 Imports: 
     colorspace,
