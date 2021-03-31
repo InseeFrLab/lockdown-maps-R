@@ -82,8 +82,8 @@ INSEE press release of May 18, “Population présente sur le territoire avant e
 
 # Dataviz: Mouvements de population autour du confinement de mars 2020.
 
-[DataViz (EN)](https://inseefrlab.github.io/lockdown-maps-r/inflows_EN.html)
-[DataViz (FR)](https://inseefrlab.github.io/lockdown-maps-r/inflows_FR.html)
+[DataViz (:en:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_EN.html)
+[DataViz (:fr:)](https://inseefrlab.github.io/lockdown-maps-R/inflows_FR.html)
 
 Galiana et al. (2020) documentent les mouvements de population autour du confinement de mars 2020 à partir d'indicateurs anonymes issus de la téléphonie mobile fournis à l'Insee par trois opérateurs de téléphonie mobile et que l'Insee a combiné aux estimations annuelles de population. Pour compléter ces résultats, une seconde exploitation a été réalisée en partenariat avec CBS (Institut de Statistiques Néerlandais) permettant une visualisation fine des changements de population observés avant, et pendant, le premier confinement. Celle-ci offre la possibilité d’observer, de façon interactive et département par département, les changements observés (flux entrants et flux sortants). Les données mobilisées dans cette visualisation sont accessibles [ici](LINK).
 
