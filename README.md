@@ -26,21 +26,47 @@ The method to construct population estimates before and during lockdown was desc
 ## Data
 
 ### Download
-[Aggregated Data, as published in May 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates
-[Dataviz Data, as published in April 2021](LINK): allows re-use by disseminating flows
+
+[Aggregated Data, as published in May 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates  
+
+[Dataviz Data, as published in April 2021](https://insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
 
 ### Cautionary note
 These two data sets are considered by Insee as **experimental**: the new data sources that constitute aggregated mobile phone data suffer a number of biases which were probably only partially adjusted. In addition, the second data set which feeds the dataviz is disseminated by rounded only at 100, to allow for re-use and aggregation such as these allowing to deploy the [visualisation](LINK). It is however recommended to interpret these numbers and aggregates made from them after rounding at 1,000 (as it is done for the visualisation). In addition, as not all couples of presence/residency `(d,r)` can be estimated (intermittent flows, not enough observations) and because there are irreductible rounding errors, the aggregates which were first published and estimated at a more aggregated level should stay the reference.
 
 ## Visualisation
 
-CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualisation tool.  @mtennekes
+CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) has built the visualization tool.  [More insight into mobility with the doughnut map (cbs.nl)](https://www.cbs.nl/en-gb/over-ons/innovation/project/more-insight-into-mobility-with-the-doughnut-map)  
+
+It was also applied to job communting in the NetherLands [NL Job Commuting Viz](https://dashboards.cbs.nl/v1/commutingNL/) 
+
+
+
+
+To build the visualization from R: 
+First make sure all the dependencies have been installed, for instance with the package `renv` which read `renv.lock`:
+```
+renv::init()
+renv::restore()
+```
+The pipeline can be run with the `targets`: it builds the htmls files with the `_targets.R` workflow.
+
+```
+targets::tar_make()
+```
+
+
 
 ## References
 
 Galiana, L. Suarez Castillo, M., Sémécurbe, F. Coudin, E., de Bellefon, M.-P. (2020), "Retour	partiel des mouvements de  population avec le déconfinement", Insee Analyses N°54, INSEE  
 		
 Tennekes, M. and Chen, M. (2021) Design Space of Origin-Destination Data Visualization.	Forthcoming in Eurographics <br> Conference on Visualization (EuroVis) 2021
+
+[More insight into mobility with the doughnut map - Statistics Netherlands. cbs.nl](https://www.cbs.nl/en-gb/over-ons/innovation/project/more-insight-into-mobility-with-the-doughnut-map)  
+
+
+Déplacements de population lors du confinement au printemps 2020 - Données expérimentales - INSEE, https://insee.fr/fr/statistiques/5350073
 
 INSEE press release of April 8, “Population présente sur le territoire avant et après le début du confinement : résultats provisoires”, https://www.insee.fr/fr/information/4477356
 
@@ -68,10 +94,15 @@ _Département de résidence_ : Il s'agit du département de résidence "usuelle"
 
 La méthode décrite dans Galiana et al. (2020) a été étendue à tous les couples départements de présence, département de résidence. Les sources sont décrites dans Galiana et al. (2020). Les données publiées en mai fournissent une information en différence qui restent la référence, et ventilées pour les seuls résidents parisiens. 
 
+
 ## Données 
 
+Téléchargement: 
 [Données agrégées publiées en mai 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates
-[Données de la dataviz, publiées en avril 2021](LINK): allows re-use by disseminating flows
+[Données de la dataviz (données expérimentales), publiées en avril 2021](https://previsualisation.insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
+
+Voir également:  
+[Déplacements de population lors du confinement au printemps 2020 - Données expérimentales - Bases de données](https://insee.fr/fr/statistiques/5350073)
 
 ## Précautions d'usage des données
 
@@ -79,8 +110,7 @@ L’Insee considère ces résultats comme **expérimentaux**. Au même titre que
 
 ## Visualisation 
 
-CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de visualisation. 
-
+CBS [Statistics Netherlands](https://www.cbs.nl/en-gb) a réalisé l'outil de visualisation. Lien en anglais uniquement :  [More insight into mobility with the doughnut map (cbs.nl)](https://www.cbs.nl/en-gb/over-ons/innovation/project/more-insight-into-mobility-with-the-doughnut-map)  [NL Job Commuting Viz](https://dashboards.cbs.nl/v1/commutingNL/) 
 
 ## Références
 
@@ -88,6 +118,8 @@ Galiana, L. Suarez Castillo, M., Sémécurbe, F. Coudin, E., de Bellefon, M.-P. 
 
 Tennekes, M. and Chen, M. (2021) Design Space of Origin-Destination Data Visualization. Forthcoming in Eurographics
 Conference on Visualization (EuroVis) 2021
+
+Déplacements de population lors du confinement au printemps 2020 - Données expérimentales - INSEE, https://insee.fr/fr/statistiques/5350073
 
 INSEE press release of April 8, “Population présente sur le territoire avant et après le début du confinement : résultats provisoires”, https://www.insee.fr/fr/information/4477356
 
