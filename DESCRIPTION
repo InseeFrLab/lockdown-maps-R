@@ -1,6 +1,8 @@
 Package: lockdown-maps-R
-Title: Dataviz before/after first lockdown (March 2020)
+Title: Population Movements at Spring 2020 Lockdown in France -
+    Interactive Data Visualizations
 Version: 0.0.0.9000
+Date: 2021-04-01
 Authors@R: 
     c(person(given = "Milena",
              family = "Suarez Castillo",
@@ -26,6 +28,7 @@ Description: This repository contains the code to build the dataviz. It
     builds on (Martijn Repo).
 License: MIT + file LICENSE
 URL: https://github.com/InseeFrLab/lockdown-maps-R
+BugReports: https://github.com/InseeFrLab/lockdown-maps-R/issues
 Imports: 
     colorspace,
     htmltools,
@@ -40,13 +43,13 @@ Imports:
     sp,
     targets,
     tidyverse,
-    tools,
     tmap,
     tmaptools,
+    tools,
     units,
     xml2
 Remotes:
     mtennekes/odf,
-    r-spatial/leafsync,
-    mtennekes/tmap
+    mtennekes/tmap,
+    r-spatial/leafsync
 Encoding: UTF-8
