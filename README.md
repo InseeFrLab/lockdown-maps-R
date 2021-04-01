@@ -29,7 +29,7 @@ The method to construct population estimates before and during lockdown was desc
 
 [Aggregated Data, as published in May 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates  
 
-[Dataviz Data, as published in April 2021](https://insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
+[Dataviz Data, as published in April 2021](https://www.insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
 
 ### Cautionary note
 
@@ -103,7 +103,7 @@ La méthode décrite dans Galiana et al. (2020) a été étendue à tous les cou
 ## Données 
 
 Téléchargement: 
-[Données agrégées publiées en mai 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates
+[Données agrégées publiées en mai 2020](https://www.insee.fr/fr/statistiques/fichier/4635407/IA54_Donnees.xlsx): stays the reference for aggregates  
 [Données de la dataviz (données expérimentales), publiées en avril 2021](https://www.insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip): allows re-use by disseminating flows
 
 Voir également:  
