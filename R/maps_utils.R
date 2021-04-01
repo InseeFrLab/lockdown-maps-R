@@ -24,8 +24,16 @@ get_residents <- function(){
   return(res)
 }
 
+get_data <- function(){
+  # --- From Insee.fr 
+  httr::GET('https://www.insee.fr/fr/statistiques/fichier/5350073/mouvements_population_confinement_2020_csv.zip', httr::write_disk(tf <- tempfile(fileext = ".zip")))
+  unzip(tf)
+  data <- read.csv('mouvements_population_confinement_2020.csv')
+  return(data)
+}
+
 get_ODs <- function() {
-  data <- read.csv('data/MouvementsPopulation_confinement2020.csv')
+  data <- get_data()
   
   od_before = data %>%
     select(code_from = departementRes,
