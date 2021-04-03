@@ -7,7 +7,6 @@
 # 
 library(targets)
 
-source("R/bake_donuts.R", encoding = "UTF-8")
 source("R/maps_utils.R", encoding = "UTF-8")
 
 tar_option_set(

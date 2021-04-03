@@ -237,8 +237,9 @@ HTMLInfos <- function(vizLink, inflows, langue){
 
 build_tmap <- function(od, totals, inflow, langue, title) {
   param <- map_parameters(langue)
-  bake_donuts(
+  donutmaps::bake_donuts(
     od,
+    var = 'flow',
     totals,
     highlight = param$highlight,
     pal = param$pal,

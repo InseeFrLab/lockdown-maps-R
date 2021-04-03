@@ -31,6 +31,7 @@ URL: https://github.com/InseeFrLab/lockdown-maps-R
 BugReports: https://github.com/InseeFrLab/lockdown-maps-R/issues
 Imports: 
     colorspace,
+    donutmaps,
     htmltools,
     htmlwidgets,
     httr,
@@ -51,5 +52,6 @@ Imports:
 Remotes:
     mtennekes/odf,
     mtennekes/tmap,
+    mtennekes/donutmaps,
     r-spatial/leafsync
 Encoding: UTF-8
